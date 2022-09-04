@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F53D228C446F0001419BF /* UserInfoView.swift */; };
 		F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FE6FF528C332ED00A6153A /* RMIT_DatingApp.swift */; };
 		F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FE6FF728C332ED00A6153A /* ContentView.swift */; };
 		F4FE6FFA28C332EE00A6153A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4FE6FF928C332EE00A6153A /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F44F53D228C446F0001419BF /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		F4FE6FF228C332ED00A6153A /* RMIT Dating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RMIT Dating.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FE6FF528C332ED00A6153A /* RMIT_DatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMIT_DatingApp.swift; sourceTree = "<group>"; };
 		F4FE6FF728C332ED00A6153A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				F4FE700428C3353900A6153A /* IntroView.swift */,
 				F4FE700628C3354900A6153A /* LoginView.swift */,
 				F4FE700B28C34F5500A6153A /* SignupView.swift */,
+				F44F53D228C446F0001419BF /* UserInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FE700C28C34F5500A6153A /* SignupView.swift in Sources */,
+				F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */,
 				F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */,
 				F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */,
 				F4FE700728C3354900A6153A /* LoginView.swift in Sources */,

@@ -25,7 +25,7 @@ struct LoginView: View {
                 VStack {
                     WelcomeText()
                     UserImage()
-                    UsernameTextField(username: $username, editingMode: $editingMode)
+                    UsernameTextField(username: $username)
                     PasswordSecureField(password: $password)
                     Button(action: {
                         self.authenticationDidSucceed = false
@@ -82,7 +82,7 @@ struct UserImage: View {
     
 struct UsernameTextField : View {
     @Binding var username: String
-    @Binding var editingMode: Bool
+    
     var body: some View {
     return TextField("Username", text: $username)
                 .padding()
@@ -116,7 +116,6 @@ struct LoginButtonContent : View {
                 self.authenticationDidFail = false
             } else {
                 self.authenticationDidFail = true
-//                self.authenticationDidSucceed = false
             }
         }) {
             Text("Log in")
