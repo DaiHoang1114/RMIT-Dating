@@ -10,9 +10,34 @@ import SwiftUI
 struct SwipeView: View {
     var body: some View {
         ZStack {
-            Color.red
-            Text("Swipe View")
-                .foregroundColor(Color.white)
+            VStack {
+                HStack {
+                    Text("Swipe View")
+                        .foregroundColor(Color.red)
+                }
+                Spacer()
+                
+                // Row
+                HStack {
+                    Image(systemName: "multiply.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .leading)
+                    Spacer()
+                    Image(systemName: "star")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .center)
+                    Spacer()
+                    Image(systemName: "heart.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .trailing)
+                }
+                    .padding(.bottom, 60)
+                    .padding([.leading, .trailing], 40)
+
+            }
         }
         
     }

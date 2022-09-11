@@ -13,7 +13,7 @@ struct MainView: View {
         TabView {
             SwipeView()
                 .tabItem() {
-                    Image(systemName: "phone.fill")
+                    Image(systemName: "suit.heart.fill")
                     Text("Swipe")
                 }
             MessageView()
