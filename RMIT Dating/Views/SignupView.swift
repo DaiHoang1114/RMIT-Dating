@@ -14,19 +14,18 @@ struct SignupView: View {
     
     @State var match: Bool = false
     var body: some View {
-        
+        if match {
+            LoginView()
+        } else {
             ZStack {
-                if match {
-                    UserInfoView()
-                } else {
-                    VStack {
-                        NewUsernameTextField(username: $username)
-                        NewPasswordSecureField(password: $password)
-                        ReTypePasswordSecureField(repassword: $repassword)
-                        SignUpButton(password: $password, repassword: $repassword, match: $match)
-                    }
+                VStack {
+                    NewUsernameTextField(username: $username)
+                    NewPasswordSecureField(password: $password)
+                    ReTypePasswordSecureField(repassword: $repassword)
+                    SignUpButton(password: $password, repassword: $repassword, match: $match)
                 }
             }
+        }
     }
 }
 

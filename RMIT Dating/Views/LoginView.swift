@@ -21,43 +21,33 @@ struct LoginView: View {
     @State var showView = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    WelcomeText()
-                    AppImage()
-                    UsernameTextField(username: $username)
-                    PasswordSecureField(password: $password)
-                    Button(action: {
-                        self.authenticationDidSucceed = false
-                    }) {
-                        Text("Information not correct. Try again.")
-                            .offset(y: -10)
-                            .foregroundColor(.red)
-
-                    }
-                    if authenticationDidFail {
+        if authenticationDidSucceed {
+            MainView()
+        } else {
+            NavigationView {
+                ZStack {
+                    VStack {
+                        WelcomeText()
+                        AppImage()
+                        UsernameTextField(username: $username)
+                        PasswordSecureField(password: $password)
+                        if authenticationDidFail {
+                            
+                            Text("Information not correct. Try again.")
+                                .offset(y: -10)
+                                .foregroundColor(.red)
+                        }
                         
-                        Text("Information not correct. Try again.")
-                            .offset(y: -10)
-                            .foregroundColor(.red)
-                    }
-                    if authenticationDidSucceed {
-                        Text("Login succeeded!")
-                            .offset(y: -10)
-                            .foregroundColor(.blue)
-                    }
-                    
-                    LoginButtonContent(username: $username, password: $password, authenticationDidSucceed: $authenticationDidSucceed, authenticationDidFail: $authenticationDidFail)
-                    
-                    SignUpButtonContent()
+                        LoginButtonContent(username: $username, password: $password, authenticationDidSucceed: $authenticationDidSucceed, authenticationDidFail: $authenticationDidFail)
                         
-                    }
-                    .padding()
+                        SignUpButtonContent()
+                            
+                        }
+                        .padding()
+                }
             }
-            
+                    .offset(y: editingMode ? -150 : 0)
         }
-                .offset(y: editingMode ? -150 : 0)
         }
 }
 struct WelcomeText: View {
