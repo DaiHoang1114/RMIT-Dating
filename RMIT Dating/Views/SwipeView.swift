@@ -15,6 +15,21 @@ struct SwipeView: View {
                     Text("Swipe View")
                         .foregroundColor(Color.red)
                 }
+                .padding(.bottom, 100)
+                
+                // Image Scroll
+                VStack {
+                    Divider()
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 10) {
+                            ForEach(0..<10) { index in
+                                CardImageView(label: "\(index)")
+                            }
+                        }.padding()
+                    }.frame(height: 500)
+                    Divider()
+                    Spacer()
+                }
                 Spacer()
                 
                 // Row
