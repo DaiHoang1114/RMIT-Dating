@@ -19,12 +19,13 @@ struct LoginView: View {
         
     @State var editingMode: Bool = false
     @State var showView = false
+    
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     WelcomeText()
-                    UserImage()
+                    AppImage()
                     UsernameTextField(username: $username)
                     PasswordSecureField(password: $password)
                     Button(action: {
@@ -68,9 +69,9 @@ struct WelcomeText: View {
     }
 }
 
-struct UserImage: View {
+struct AppImage: View {
     var body: some View {
-        return Image("userImage")
+        return Image("appImage")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 150, height: 150)
