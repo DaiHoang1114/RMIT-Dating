@@ -10,13 +10,7 @@
 		F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375728CDAA13007B4536 /* SwipeView.swift */; };
 		F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375928CDAA56007B4536 /* MessageView.swift */; };
 		F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F53D228C446F0001419BF /* UserInfoView.swift */; };
-		F4F5243628C48B8B00417E82 /* BottomBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243528C48B8B00417E82 /* BottomBarItemView.swift */; };
-		F4F5243828C48BC500417E82 /* BottomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243728C48BC500417E82 /* BottomBarItem.swift */; };
-		F4F5243A28C48C7D00417E82 /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243928C48C7D00417E82 /* BottomBar.swift */; };
-		F4F5243C28C48CAC00417E82 /* BarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243B28C48CAC00417E82 /* BarBuilder.swift */; };
 		F4F5243E28C4911600417E82 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243D28C4911600417E82 /* MainView.swift */; };
-		F4F5244028C493A100417E82 /* BarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243F28C493A100417E82 /* BarData.swift */; };
-		F4F5244528C4942300417E82 /* bars.json in Resources */ = {isa = PBXBuildFile; fileRef = F4F5244428C4942200417E82 /* bars.json */; };
 		F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FE6FF528C332ED00A6153A /* RMIT_DatingApp.swift */; };
 		F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FE6FF728C332ED00A6153A /* ContentView.swift */; };
 		F4FE6FFA28C332EE00A6153A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4FE6FF928C332EE00A6153A /* Assets.xcassets */; };
@@ -31,13 +25,7 @@
 		F40C375728CDAA13007B4536 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		F40C375928CDAA56007B4536 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		F44F53D228C446F0001419BF /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
-		F4F5243528C48B8B00417E82 /* BottomBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarItemView.swift; sourceTree = "<group>"; };
-		F4F5243728C48BC500417E82 /* BottomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarItem.swift; sourceTree = "<group>"; };
-		F4F5243928C48C7D00417E82 /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
-		F4F5243B28C48CAC00417E82 /* BarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBuilder.swift; sourceTree = "<group>"; };
 		F4F5243D28C4911600417E82 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		F4F5243F28C493A100417E82 /* BarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarData.swift; sourceTree = "<group>"; };
-		F4F5244428C4942200417E82 /* bars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = bars.json; path = ../../../../ContactList/SSETContactList/ContactList/Model/bars.json; sourceTree = "<group>"; };
 		F4FE6FF228C332ED00A6153A /* RMIT Dating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RMIT Dating.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FE6FF528C332ED00A6153A /* RMIT_DatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMIT_DatingApp.swift; sourceTree = "<group>"; };
 		F4FE6FF728C332ED00A6153A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,9 +92,6 @@
 				F4FE700628C3354900A6153A /* LoginView.swift */,
 				F4FE700B28C34F5500A6153A /* SignupView.swift */,
 				F44F53D228C446F0001419BF /* UserInfoView.swift */,
-				F4F5243528C48B8B00417E82 /* BottomBarItemView.swift */,
-				F4F5243928C48C7D00417E82 /* BottomBar.swift */,
-				F4F5243B28C48CAC00417E82 /* BarBuilder.swift */,
 				F4F5243D28C4911600417E82 /* MainView.swift */,
 				F40C375728CDAA13007B4536 /* SwipeView.swift */,
 				F40C375928CDAA56007B4536 /* MessageView.swift */,
@@ -117,10 +102,7 @@
 		F4FE700828C33AC400A6153A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F4F5244428C4942200417E82 /* bars.json */,
 				F4FE700928C33AE200A6153A /* ColorConstants.swift */,
-				F4F5243728C48BC500417E82 /* BottomBarItem.swift */,
-				F4F5243F28C493A100417E82 /* BarData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4FE6FFD28C332EE00A6153A /* Preview Assets.xcassets in Resources */,
-				F4F5244528C4942300417E82 /* bars.json in Resources */,
 				F4FE6FFA28C332EE00A6153A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,14 +183,9 @@
 				F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */,
 				F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */,
 				F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */,
-				F4F5244028C493A100417E82 /* BarData.swift in Sources */,
 				F4FE700728C3354900A6153A /* LoginView.swift in Sources */,
 				F4FE700A28C33AE200A6153A /* ColorConstants.swift in Sources */,
 				F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */,
-				F4F5243A28C48C7D00417E82 /* BottomBar.swift in Sources */,
-				F4F5243628C48B8B00417E82 /* BottomBarItemView.swift in Sources */,
-				F4F5243828C48BC500417E82 /* BottomBarItem.swift in Sources */,
-				F4F5243C28C48CAC00417E82 /* BarBuilder.swift in Sources */,
 				F4FE700528C3353900A6153A /* IntroView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
