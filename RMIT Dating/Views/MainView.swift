@@ -26,11 +26,6 @@ struct MainView: View {
                     Image(systemName: "person.fill")
                     Text("Profile")
                 }
-            SettingView()
-                .tabItem() {
-                    Image(systemName: "slider.horizontal.3")
-                    Text("Setting")
-                }
         }
     }
 }

@@ -40,7 +40,7 @@ struct LoginView: View {
                         
                         LoginButtonContent(username: $username, password: $password, authenticationDidSucceed: $authenticationDidSucceed, authenticationDidFail: $authenticationDidFail)
                         
-                        SignUpButtonContent()
+//                        SignUpButtonContent()
                             
                         }
                         .padding()
@@ -117,22 +117,6 @@ struct LoginButtonContent : View {
                 .background(Color.green)
                 .cornerRadius(15.0)
         }
-    }
-}
-
-struct SignUpButtonContent : View {
-    var body: some View {
-        return NavigationLink {
-            SignupView()
-            } label: {
-                Text("Sign Up")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 220, height: 60)
-                    .background(Color.green)
-                    .cornerRadius(15.0)
-            }
     }
 }
 

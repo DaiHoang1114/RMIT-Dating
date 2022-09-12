@@ -10,9 +10,26 @@ import SwiftUI
 struct MessageView: View {
     var body: some View {
         ZStack {
-            Color.blue
-            Text("Message View")
-                .foregroundColor(Color.white)
+            VStack {
+                HStack {
+                    Text("Message View")
+                        .foregroundColor(Color.red)
+                }
+                .padding(.bottom, 100)
+                // Image Scroll
+                VStack {
+                    Divider()
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 10) {
+                            ForEach(0..<10) { index in
+                                CardImageView(label: "\(index)")
+                            }
+                        }.padding()
+                    }.frame(height: 100)
+                    Divider()
+                    Spacer()
+                }
+            }
         }
     }
 }
