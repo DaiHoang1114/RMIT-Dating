@@ -11,23 +11,37 @@ struct MessageView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack {
-                    Text("Message View")
-                        .foregroundColor(Color.red)
-                }
-                .padding(.bottom, 100)
                 // Image Scroll
                 VStack {
+                    HStack {
+                        Text("New Matches")
+                            .foregroundColor(Color.red)
+                        Spacer()
+                    }
+                    .padding(.leading, 20)
+                    
                     Divider()
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
                             ForEach(0..<10) { index in
                                 CardImageView(label: "\(index)")
+                                    .frame(width: 200, height: 200)
                             }
                         }.padding()
-                    }.frame(height: 100)
+                    }
                     Divider()
+                    
+                    
+                    HStack {
+                        Text("Messages")
+                            .foregroundColor(Color.red)
+                        Spacer()
+                    }
+                    .padding(.leading, 20)
                     Spacer()
+                    
+                    // Message List
+                    MessageListView()
                 }
             }
         }

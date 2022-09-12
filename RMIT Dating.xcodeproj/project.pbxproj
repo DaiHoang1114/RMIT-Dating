@@ -12,6 +12,8 @@
 		F40C375C28CDB57D007B4536 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375B28CDB57D007B4536 /* SettingView.swift */; };
 		F40C375E28CDD469007B4536 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375D28CDD469007B4536 /* CardImageView.swift */; };
 		F42217AC28CF68DF00A9BD7F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42217AB28CF68DF00A9BD7F /* SplashView.swift */; };
+		F42217AE28CF75C100A9BD7F /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42217AD28CF75C100A9BD7F /* MessageListView.swift */; };
+		F42217B228CF77B000A9BD7F /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42217B128CF77B000A9BD7F /* MessageCard.swift */; };
 		F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F53D228C446F0001419BF /* UserInfoView.swift */; };
 		F4F5243E28C4911600417E82 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5243D28C4911600417E82 /* MainView.swift */; };
 		F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FE6FF528C332ED00A6153A /* RMIT_DatingApp.swift */; };
@@ -30,6 +32,8 @@
 		F40C375B28CDB57D007B4536 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		F40C375D28CDD469007B4536 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		F42217AB28CF68DF00A9BD7F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		F42217AD28CF75C100A9BD7F /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
+		F42217B128CF77B000A9BD7F /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		F44F53D228C446F0001419BF /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		F4F5243D28C4911600417E82 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F4FE6FF228C332ED00A6153A /* RMIT Dating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RMIT Dating.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,8 @@
 				F40C375928CDAA56007B4536 /* MessageView.swift */,
 				F40C375D28CDD469007B4536 /* CardImageView.swift */,
 				F42217AB28CF68DF00A9BD7F /* SplashView.swift */,
+				F42217AD28CF75C100A9BD7F /* MessageListView.swift */,
+				F42217B128CF77B000A9BD7F /* MessageCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,7 +200,9 @@
 				F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */,
 				F4FE700728C3354900A6153A /* LoginView.swift in Sources */,
 				F4FE700A28C33AE200A6153A /* ColorConstants.swift in Sources */,
+				F42217AE28CF75C100A9BD7F /* MessageListView.swift in Sources */,
 				F42217AC28CF68DF00A9BD7F /* SplashView.swift in Sources */,
+				F42217B228CF77B000A9BD7F /* MessageCard.swift in Sources */,
 				F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */,
 				F4FE700528C3353900A6153A /* IntroView.swift in Sources */,
 				F40C375E28CDD469007B4536 /* CardImageView.swift in Sources */,

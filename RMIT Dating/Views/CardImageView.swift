@@ -14,7 +14,6 @@ struct CardImageView: View {
         ZStack {
             Rectangle()
                 .fill(Color.yellow)
-                .frame(width: 350, height: 350)
             Text(label)
         }
     }

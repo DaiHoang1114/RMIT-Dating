@@ -24,6 +24,7 @@ struct SwipeView: View {
                         HStack(spacing: 10) {
                             ForEach(0..<10) { index in
                                 CardImageView(label: "\(index)")
+                                    .frame(width: 350, height: 350)
                             }
                         }.padding()
                     }.frame(height: 500)
