@@ -39,8 +39,6 @@ struct LoginView: View {
                         }
                         
                         LoginButtonContent(username: $username, password: $password, authenticationDidSucceed: $authenticationDidSucceed, authenticationDidFail: $authenticationDidFail)
-                        
-//                        SignUpButtonContent()
                             
                         }
                         .padding()

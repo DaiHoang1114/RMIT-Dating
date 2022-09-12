@@ -10,15 +10,17 @@ import SwiftUI
 
 struct UserInfoView: View {
     var body: some View {
-        
-        ZStack {
-            VStack {
-                UserImage()
-                UserInfo()
-                EditProfile()
+        NavigationView {
+            ZStack {
+                VStack {
+                    UserImage()
+                    UserInfo()
+                    EditProfile()
+                }
+                
             }
-            
         }
+
     }
 }
 
@@ -43,7 +45,7 @@ struct UserInfo: View {
 struct EditProfile: View {
     var body: some View {
         return NavigationLink {
-            LoginView()
+            SettingView()
             } label: {
                 Text("Edit profile")
                     .font(.headline)
