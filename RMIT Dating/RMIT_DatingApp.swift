@@ -11,7 +11,7 @@ import SwiftUI
 struct RMIT_DatingApp: App {
     var body: some Scene {
         WindowGroup {
-            IntroView()
+            SplashView()
         }
     }
 }
