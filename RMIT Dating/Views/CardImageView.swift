@@ -12,7 +12,7 @@ struct CardImageView: View {
     
     var body: some View {
         ZStack {
-            Circle()
+            Rectangle()
                 .fill(Color.yellow)
                 .frame(width: 350, height: 350)
             Text(label)
