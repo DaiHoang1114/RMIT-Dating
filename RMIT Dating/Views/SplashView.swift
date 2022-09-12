@@ -23,7 +23,8 @@ struct SplashView: View {
                         .font(.system(size: 80))
                         .foregroundColor(.red)
                     Text("Dating App")
-                        .font(Font.custom("Baskerville-Bold", size: 26))
+                        .font(Font.custom("AmericanTypewriter", size: 26))
+                        .fontWeight(.light)
                         .foregroundColor(.black.opacity(0.80))
                 }
                 .scaleEffect(size)
