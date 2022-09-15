@@ -12,12 +12,6 @@ struct SettingView: View {
     @EnvironmentObject var userInfoVM: UserInfoViewModel
     @EnvironmentObject var userVM: UserViewModel
     
-    var dateFormat: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }
-    
     @State var userInfoDto: UserInfo = UserInfo()
     
     var body: some View {
@@ -45,7 +39,6 @@ struct SettingView: View {
                         print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
                     }
                 }
-                
             }
         }
     }
