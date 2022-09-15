@@ -23,7 +23,7 @@ struct SwipeView: View {
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
                             ForEach(0..<10) { index in
-                                CardImageView(label: "\(index)")
+                                CardImage(label: "\(index)")
                                     .frame(width: 350, height: 350)
                             }
                         }.padding()

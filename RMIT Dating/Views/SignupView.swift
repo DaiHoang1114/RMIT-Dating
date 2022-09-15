@@ -9,13 +9,15 @@ import SwiftUI
 import Firebase
 
 struct SignupView: View {
+    
+    @EnvironmentObject var userVM: UserViewModel
+    
     @State var email: String = ""
-    @State var username: String = ""
     @State var password: String = ""
     @State var repassword: String = ""
-    
     @State var signUpSuccess: Bool = false
-    @State var error: String = ""
+    @State var signUpErrorMessage: String = ""
+    @State var signUpProcessing = false
     
     var body: some View {
         
@@ -24,90 +26,63 @@ struct SignupView: View {
         } else {
             ZStack {
                 VStack {
-                    NewEmailTextField(email: $email)
-                    NewUsernameTextField(username: $username)
-                    NewPasswordSecureField(password: $password)
-                    ReTypePasswordSecureField(repassword: $repassword)
-                    if !signUpSuccess && !error.isEmpty {
-                        Text(error)
-                            .foregroundColor(.red)                    }
-                    SignUpButton(email: $email, password: $password, repassword: $repassword, signUpSuccess: $signUpSuccess, error: $error)
-                }
-            }
+                    TextField("Email", text: $email)
+                        .modifier(TextFieldInputModifier())
+                    SecureField("Password", text: $password)
+                        .modifier(TextFieldInputModifier())
+                    SecureField("Re-type password", text: $repassword)
+                        .modifier(TextFieldInputModifier())
+                    
+                    if !signUpSuccess && !signUpErrorMessage.isEmpty {
+                        Text("Failed creating account: \(signUpErrorMessage)").foregroundColor(.red)
+                    }
+                    
+                    Button(action: {
+                        validate()
+                    }) {
+                        Text("Sign Up")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15.0)
+                    }
+                }//VStack
+            }//ZStack
         }
     }
-}
-
-struct NewEmailTextField : View {
-    @Binding var email: String
-    var body: some View {
-    return TextField("Email", text: $email)
-            .modifier(TextFieldInputModifier())
-        }
-}
-
-struct NewUsernameTextField : View {
-    @Binding var username: String
-    var body: some View {
-    return TextField("Username", text: $username)
-            .modifier(TextFieldInputModifier())
-        }
-}
     
-struct NewPasswordSecureField : View {
-    @Binding var password: String
-    var body: some View {
-    return SecureField("Password", text: $password)
-            .modifier(TextFieldInputModifier())
-        }
-}
-
-struct ReTypePasswordSecureField : View {
-    @Binding var repassword: String
-    var body: some View {
-    return SecureField("Re-type password", text: $repassword)
-            .modifier(TextFieldInputModifier())
-        }
-}
-
-struct SignUpButton : View {
-    @Binding var email: String
-    @Binding var password: String
-    @Binding var repassword: String
-    @Binding var signUpSuccess: Bool
-    @Binding var error: String
-    
-    var body: some View {
-        return Button(action: {
-            if !self.password.isEmpty && !self.email.isEmpty {
-                if self.password == self.repassword {
-                    signUp()
-                } else {
-                    self.error = "Re-type password does not match"
-                }
+    func validate() {
+        if !self.password.isEmpty && !self.email.isEmpty {
+            if self.password == self.repassword {
+                signUp()
+            } else {
+                self.signUpErrorMessage = "Re-type password does not match"
             }
-        }) {
-            Text("Sign Up")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .frame(width: 220, height: 60)
-                .background(Color.green)
-                .cornerRadius(15.0)
         }
     }
     
     func signUp() {
+        signUpProcessing = true
+        
         Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-        print("==============================")
-            if let result = authResult {
-                print("Result: \(result)")
+            guard error == nil else {
+                signUpProcessing = false
+                signUpErrorMessage = error!.localizedDescription
+                return
             }
-            if error != nil {
-                self.error = error!.localizedDescription
-            } else {
+            
+            switch authResult {
+            case .none:
+                self.signUpErrorMessage = "Could not create account."
+                signUpProcessing = false
+            case .some(_):
+                self.signUpErrorMessage = ""
+                signUpProcessing = false
                 self.signUpSuccess = true
-                self.error = ""
+                self.userVM.setUser(user:
+                                        User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
             }
         }
     }
@@ -115,6 +90,6 @@ struct SignUpButton : View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView()
+        SignupView().environmentObject(UserViewModel())
     }
 }
