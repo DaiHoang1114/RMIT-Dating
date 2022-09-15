@@ -24,7 +24,7 @@ struct MessageView: View {
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
                             ForEach(0..<10) { index in
-                                CardImageView(label: "\(index)")
+                                CardImage(label: "\(index)")
                                     .frame(width: 200, height: 200)
                             }
                         }.padding()
@@ -41,7 +41,7 @@ struct MessageView: View {
                     Spacer()
                     
                     // Message List
-                    MessageListView()
+                    MessageList()
                 }
             }
         }

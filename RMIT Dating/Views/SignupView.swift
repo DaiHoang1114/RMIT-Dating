@@ -6,87 +6,90 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct SignupView: View {
-    @State var username: String = ""
+    
+    @EnvironmentObject var userVM: UserViewModel
+    
+    @State var email: String = ""
     @State var password: String = ""
     @State var repassword: String = ""
+    @State var signUpSuccess: Bool = false
+    @State var signUpErrorMessage: String = ""
+    @State var signUpProcessing = false
     
-    @State var match: Bool = false
     var body: some View {
-        if match {
+        
+        if signUpSuccess{
             LoginView()
         } else {
             ZStack {
                 VStack {
-                    NewUsernameTextField(username: $username)
-                    NewPasswordSecureField(password: $password)
-                    ReTypePasswordSecureField(repassword: $repassword)
-                    SignUpButton(password: $password, repassword: $repassword, match: $match)
-                }
+                    TextField("Email", text: $email)
+                        .modifier(TextFieldInputModifier())
+                    SecureField("Password", text: $password)
+                        .modifier(TextFieldInputModifier())
+                    SecureField("Re-type password", text: $repassword)
+                        .modifier(TextFieldInputModifier())
+                    
+                    if !signUpSuccess && !signUpErrorMessage.isEmpty {
+                        Text("Failed creating account: \(signUpErrorMessage)").foregroundColor(.red)
+                    }
+                    
+                    Button(action: {
+                        validate()
+                    }) {
+                        Text("Sign Up")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15.0)
+                    }
+                }//VStack
+            }//ZStack
+        }
+    }
+    
+    func validate() {
+        if !self.password.isEmpty && !self.email.isEmpty {
+            if self.password == self.repassword {
+                signUp()
+            } else {
+                self.signUpErrorMessage = "Re-type password does not match"
             }
         }
     }
-}
-
-struct NewUsernameTextField : View {
-    @Binding var username: String
-    var body: some View {
-    return TextField("Username", text: $username)
-                .padding()
-                .background(ColorConstants.lightGreyColor)
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-        }
-}
     
-struct NewPasswordSecureField : View {
-    @Binding var password: String
-    var body: some View {
-    return SecureField("Password", text: $password)
-            .padding()
-            .background(ColorConstants.lightGreyColor)
-            .cornerRadius(5.0)
-            .padding(.bottom, 20)
-        }
-}
-
-struct ReTypePasswordSecureField : View {
-    @Binding var repassword: String
-    var body: some View {
-    return SecureField("Re-type password", text: $repassword)
-            .padding()
-            .background(ColorConstants.lightGreyColor)
-            .cornerRadius(5.0)
-            .padding(.bottom, 20)
-        }
-}
-
-struct SignUpButton : View {
-    @Binding var password: String
-    @Binding var repassword: String
-    @Binding var match: Bool
-    
-    var body: some View {
-        return Button(action: {
-            if self.password == self.repassword {
-                self.match = true
+    func signUp() {
+        signUpProcessing = true
+        
+        Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+            guard error == nil else {
+                signUpProcessing = false
+                signUpErrorMessage = error!.localizedDescription
+                return
             }
             
-        }) {
-            Text("Sign Up")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .frame(width: 220, height: 60)
-                .background(Color.green)
-                .cornerRadius(15.0)
+            switch authResult {
+            case .none:
+                self.signUpErrorMessage = "Could not create account."
+                signUpProcessing = false
+            case .some(_):
+                self.signUpErrorMessage = ""
+                signUpProcessing = false
+                self.signUpSuccess = true
+                self.userVM.setUser(user:
+                                        User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
+            }
         }
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView()
+        SignupView().environmentObject(UserViewModel())
     }
 }

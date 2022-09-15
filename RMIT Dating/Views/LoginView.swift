@@ -7,47 +7,88 @@
 
 import Foundation
 import SwiftUI
-let storedUsername = "Admin"
-let storedPassword = "1234"
+import Firebase
 
 struct LoginView: View {
-    @State var username: String = ""
-    @State var password: String = ""
     
-    @State var authenticationDidFail: Bool = false
-    @State var authenticationDidSucceed: Bool = false
-        
-    @State var editingMode: Bool = false
-    @State var showView = false
+    @EnvironmentObject var userVM: UserViewModel
+    
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var signInSuccess: Bool = false
+    @State var signInProcessing = false
+    @State var signInErrorMessage = ""
     
     var body: some View {
-        if authenticationDidSucceed {
+        if signInSuccess {
             MainView()
         } else {
-            NavigationView {
-                ZStack {
-                    VStack {
-                        WelcomeText()
-                        AppImage()
-                        UsernameTextField(username: $username)
-                        PasswordSecureField(password: $password)
-                        if authenticationDidFail {
-                            
-                            Text("Information not correct. Try again.")
-                                .offset(y: -10)
-                                .foregroundColor(.red)
-                        }
-                        
-                        LoginButtonContent(username: $username, password: $password, authenticationDidSucceed: $authenticationDidSucceed, authenticationDidFail: $authenticationDidFail)
-                            
-                        }
+            VStack {
+                WelcomeText()
+                
+                TextField("Email", text: $email)
+                            .padding()
+                            .background(ColorConstants.lightGreyColor)
+                            .cornerRadius(5.0)
+                            .padding(.bottom, 20)
+                
+                SecureField("Password", text: $password)
                         .padding()
+                        .background(ColorConstants.lightGreyColor)
+                        .cornerRadius(5.0)
+                        .padding(.bottom, 20)
+                
+                if !signInSuccess && !signInErrorMessage.isEmpty {
+                    Text("Failed signing account: \(signInErrorMessage)")
+                        .offset(y: -10)
+                        .foregroundColor(.red)
                 }
+                
+                Button(action: {
+                    signIn()
+                }) {
+                    Text("Log in")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 220, height: 60)
+                        .background(Color.green)
+                        .cornerRadius(15.0)
+                }
+                .disabled(!signInProcessing && !email.isEmpty && !password.isEmpty ? false : true)
+            }//VStack
+        }
+    }
+    
+    func signIn() {
+        signInProcessing = true
+
+        Auth.auth().signIn(withEmail: email, password: password)
+        {
+            authResult, error in
+
+            guard error == nil else {
+                signInProcessing = false
+                signInErrorMessage = error!.localizedDescription
+                return
             }
-                    .offset(y: editingMode ? -150 : 0)
+
+            switch authResult {
+            case .none:
+                signInErrorMessage = "Could not sign in user."
+                signInProcessing = false
+                self.signInSuccess = false
+            case .some(_):
+                signInErrorMessage = "User signed in"
+                signInProcessing = false
+                self.signInSuccess = true
+                self.userVM.setUser(user:User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
+                print(userVM.getUser())
+            }
         }
-        }
+    }
 }
+
 struct WelcomeText: View {
     var body: some View {
         return Text("Welcome!")
@@ -59,7 +100,7 @@ struct WelcomeText: View {
 
 struct AppImage: View {
     var body: some View {
-        return Image("appImage")
+        return Image("AppImage")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 150, height: 150)
@@ -68,56 +109,6 @@ struct AppImage: View {
             .padding(.bottom, 75)
     }
 }
-    
-struct UsernameTextField : View {
-    @Binding var username: String
-    
-    var body: some View {
-    return TextField("Username", text: $username)
-                .padding()
-                .background(ColorConstants.lightGreyColor)
-                .cornerRadius(5.0)
-                .padding(.bottom, 20)
-        }
-}
-    
-struct PasswordSecureField : View {
-    @Binding var password: String
-    var body: some View {
-    return SecureField("Password", text: $password)
-            .padding()
-            .background(ColorConstants.lightGreyColor)
-            .cornerRadius(5.0)
-            .padding(.bottom, 20)
-        }
-}
-
-struct LoginButtonContent : View {
-    @Binding var username: String
-    @Binding var password: String
-    @Binding var authenticationDidSucceed: Bool
-    @Binding var authenticationDidFail: Bool
-    
-    var body: some View {
-        return Button(action: {
-            if self.username == storedUsername && self.password == storedPassword {
-                self.authenticationDidSucceed = true
-                self.authenticationDidFail = false
-            } else {
-                self.authenticationDidFail = true
-            }
-        }) {
-            Text("Log in")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .frame(width: 220, height: 60)
-                .background(Color.green)
-                .cornerRadius(15.0)
-        }
-    }
-}
-
 
 struct LoginView_Preview: PreviewProvider {
     static var previews: some View {
