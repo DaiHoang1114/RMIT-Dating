@@ -15,6 +15,15 @@ struct SettingView: View {
     @State var userInfoDto: UserInfo = UserInfo()
     @State var page: Int = 1
     
+    @State var maritalStatus: String = ""
+    @State var gender: String = ""
+    @State var religion: String = ""
+    
+    @State var hobbies: [String] = []
+    @State var music: [String]  = []
+    
+    @State var page: Int = 1
+    
     var body: some View {
         VStack {
             switch page {
