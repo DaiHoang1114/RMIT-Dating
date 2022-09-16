@@ -27,16 +27,10 @@ struct LoginView: View {
                 WelcomeText()
                 
                 TextField("Email", text: $email)
-                            .padding()
-                            .background(ColorConstants.lightGreyColor)
-                            .cornerRadius(5.0)
-                            .padding(.bottom, 20)
+                    .modifier(TextFieldInputModifier())
                 
                 SecureField("Password", text: $password)
-                        .padding()
-                        .background(ColorConstants.lightGreyColor)
-                        .cornerRadius(5.0)
-                        .padding(.bottom, 20)
+                    .modifier(TextFieldInputModifier())
                 
                 if !signInSuccess && !signInErrorMessage.isEmpty {
                     Text("Failed signing account: \(signInErrorMessage)")
@@ -48,12 +42,7 @@ struct LoginView: View {
                     signIn()
                 }) {
                     Text("Log in")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 220, height: 60)
-                        .background(Color.green)
-                        .cornerRadius(15.0)
+                        .modifier(ButtonModifier())
                 }
                 .disabled(!signInProcessing && !email.isEmpty && !password.isEmpty ? false : true)
             }//VStack
