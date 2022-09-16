@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct SettingView: View {
+    
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    @EnvironmentObject var userVM: UserViewModel
+    
     var dateFormat: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }
+    
+    @State var userInfoDto: UserInfo = UserInfo()
     
     @State var username: String = ""
     @State var birthday = Date()
@@ -29,7 +35,6 @@ struct SettingView: View {
     @State var page: Int = 1
     
     var body: some View {
-        VStack {
             switch page {
             case 1:
                 FirstPage(username: $username, birthday: $birthday, email: $email, phone: $phone)
@@ -45,8 +50,11 @@ struct SettingView: View {
             Section{
                 Button("Next") {
                     page += 1
+                    userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
                 }
-                .frame(width: .infinity, alignment: .center)
+                Button("Test") {
+                    print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
+                }
             }
         }
     }
@@ -60,18 +68,18 @@ struct FirstPage: View {
     
     var body: some View {
         Form {
-            TextField(text: $username) {
-                Text("Username")
+            TextField(text: $userInfoDto.name) {
+                Text("Full Name")
             }
-            DatePicker(selection: $birthday, in: ...Date(), displayedComponents: .date) {
-                Text("Birthday")
+            DatePicker(selection: $userInfoDto.dob, in: ...Date(), displayedComponents: .date) {
+                Text("Date of Birth")
                     .foregroundColor(.gray)
             }
             .fixedSize()
             TextField(text: $email) {
                 Text("Email")
             }
-            TextField(text: $phone) {
+            TextField(text: $userInfoDto.phone) {
                 Text("Phone")
             }
         }
@@ -83,9 +91,6 @@ struct SecondPage: View {
     @Binding var gender: String
     @Binding var religion: String
     
-    var body: some View {
-        NavigationView {
-            Form {
                 Picker(selection: $maritalStatus) {
                     Text("Single").tag("Single")
                     Text("Married").tag("Married")
@@ -176,6 +181,13 @@ struct SelectionRow: View {
         Button(action: action, label: {
             HStack {
                 Text(title)
+                    .foregroundColor(.black)
+                if selected {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                }
+            }
+        })
                     .foregroundColor(.black)
                 if selected {
                     Spacer()

@@ -13,6 +13,7 @@ import Foundation
 struct RMIT_DatingApp: App {
     
     @StateObject private var userVM = UserViewModel()
+    @StateObject private var userInfoVM = UserInfoViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -20,7 +21,9 @@ struct RMIT_DatingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SplashView().environmentObject(userVM)
+            SplashView()
+                .environmentObject(userVM)
+                .environmentObject(userInfoVM)
         }
     }
 }

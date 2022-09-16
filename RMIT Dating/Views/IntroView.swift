@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct IntroView: View {
+    
     @State var isLoginView: Bool = false
     @State var isSignUpView: Bool = false
     

@@ -22,7 +22,7 @@ struct SignupView: View {
     var body: some View {
         
         if signUpSuccess{
-            LoginView()
+            SettingView()
         } else {
             ZStack {
                 VStack {
@@ -41,12 +41,7 @@ struct SignupView: View {
                         validate()
                     }) {
                         Text("Sign Up")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 220, height: 60)
-                            .background(Color.green)
-                            .cornerRadius(15.0)
+                            .modifier(ButtonModifier())
                     }
                 }//VStack
             }//ZStack
