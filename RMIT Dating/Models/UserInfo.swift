@@ -8,16 +8,25 @@
 import Foundation
 
 struct UserInfo {
-    private var userId: String
-    private var name: String
-    private var dob: String
-    private var phone: String
-    private var maritalStatus: String
-    private var gender: String
-    private var religion: String
-    private var hobbies: [String]
-    private var musics: [String]
+    var uuid: String
+    var userId: String
+    var name: String
+    var dob: Date
+    var phone: String
+    var maritalStatus: String
+    var gender: String
+    var religion: String
+    var hobbies: [String]
+    var musics: [String]
     //images
+    
+    mutating func setUuid(uuid: String) {
+        self.uuid = uuid
+    }
+    
+    func getUuid() -> String {
+        return self.uuid
+    }
     
     mutating func setUserId(userId: String) {
         self.userId = userId
@@ -35,11 +44,11 @@ struct UserInfo {
         return self.name
     }
     
-    mutating func setDob(dob: String) {
+    mutating func setDob(dob: Date) {
         self.dob = dob
     }
     
-    func getDob() -> String {
+    func getDob() -> Date {
         return self.dob
     }
     
@@ -91,9 +100,10 @@ struct UserInfo {
         return self.musics
     }
     
-    init(uuid: String, name: String, dob: String, phone: String, maritalStatus: String,
+    init(uuid: String, userId: String, name: String, dob: Date, phone: String, maritalStatus: String,
          gender: String, religion: String, hobbies: [String], musics: [String]) {
         self.uuid = uuid
+        self.userId = userId
         self.name = name
         self.dob = dob
         self.phone = phone
@@ -106,8 +116,9 @@ struct UserInfo {
     
     init() {
         self.uuid = ""
+        self.userId = ""
         self.name = ""
-        self.dob = ""
+        self.dob = Date()
         self.phone = ""
         self.maritalStatus = ""
         self.gender = ""

@@ -8,39 +8,42 @@
 import SwiftUI
 
 struct SettingView: View {
+    
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    @EnvironmentObject var userVM: UserViewModel
+    
     var dateFormat: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }
     
-    @State var username: String = ""
-    @State var birthday = Date()
-    @State var email: String = ""
-    @State var phone: String = ""
+    @State var userInfoDto: UserInfo = UserInfo()
     
     var body: some View {
         VStack {
             Form {
-                TextField(text: $username) {
-                    Text("Username")
+                TextField(text: $userInfoDto.name) {
+                    Text("Full Name")
                 }
-                DatePicker(selection: $birthday, in: ...Date(), displayedComponents: .date) {
-                    Text("Birthday")
+                
+                DatePicker(selection: $userInfoDto.dob, in: ...Date(), displayedComponents: .date) {
+                    Text("Date of Birth")
                         .foregroundColor(.gray)
                 }
                 .fixedSize()
-                TextField(text: $email) {
-                    Text("Email")
-                }
-                TextField(text: $phone) {
+                
+                TextField(text: $userInfoDto.phone) {
                     Text("Phone")
                 }
+                
                 Section{
                     Button("Next") {
-                        
+                        userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
                     }
-                    .frame(width: .infinity, alignment: .center)
+                    Button("Test") {
+                        print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
+                    }
                 }
                 
             }

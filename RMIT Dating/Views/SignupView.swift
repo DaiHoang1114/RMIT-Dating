@@ -22,7 +22,7 @@ struct SignupView: View {
     var body: some View {
         
         if signUpSuccess{
-            LoginView()
+            SettingView()
         } else {
             ZStack {
                 VStack {

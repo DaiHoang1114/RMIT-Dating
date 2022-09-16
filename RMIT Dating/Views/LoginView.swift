@@ -112,6 +112,6 @@ struct AppImage: View {
 
 struct LoginView_Preview: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(UserViewModel())
     }
 }

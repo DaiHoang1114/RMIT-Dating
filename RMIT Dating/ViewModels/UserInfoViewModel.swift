@@ -6,9 +6,87 @@
 //
 
 import Foundation
+import Firebase
 
 class UserInfoViewModel: ObservableObject {
     @Published private var userInfo: UserInfo = UserInfo()
+    
+    let db = Firestore.firestore()
+    
+    func createUserInfo(userId: String, userInfoDto: UserInfo) {
+        var ref: DocumentReference? = nil
+        ref = db.collection("UserInfos").addDocument(data: [
+            "userId": userId,
+            "name": userInfoDto.name,
+            "dob": userInfoDto.dob,
+            "phone": userInfoDto.phone
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                self.setUserInfo(userInfo: userInfoDto)
+                self.setUserId(userId: userId)
+                self.setUuid(uuid: ref!.documentID)
+                print("Document added: \(self.getUserInfo())")
+            }
+        }
+    }
+    
+    func updateUserInfo(userInfoDto: UserInfo) {
+        db.collection("UserInfos").document(userInfoDto.uuid).updateData([
+            "userId": userInfoDto.userId,
+            "name": userInfoDto.name,
+            "dob": userInfoDto.dob,
+            "phone": userInfoDto.phone
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    func fetchUserInfoByUserId(userId: String) -> UserInfo {
+        
+        var fetchedUserInfo = UserInfo()
+        
+        db.collection("UserInfos").whereField("userId", isEqualTo: userId)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    print("calling")
+                    for document in querySnapshot!.documents {
+                        fetchedUserInfo.setUserId(userId: document.data()["userId"] as! String)
+                        fetchedUserInfo.setName(name: document.data()["name"] as! String)
+                        fetchedUserInfo.setDob(dob: self.convertStringToDate(stringDate: document.data()["dob"] as! String))
+                        fetchedUserInfo.setPhone(phone: document.data()["phone"] as! String)
+                    }
+                }
+        }
+        
+        return fetchedUserInfo
+    }
+    
+    private func convertStringToDate(stringDate: String) -> Date {
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+        // Convert String to Date
+        return dateFormatter.date(from: stringDate)!
+    }
+    
+    func setUuid(uuid: String) {
+        self.userInfo.setUuid(uuid: uuid)
+    }
+    
+    func getUuid() -> String {
+        return self.userInfo.getUuid()
+    }
     
     func setUserId(userId: String) {
         self.userInfo.setUserId(userId: userId)
@@ -26,11 +104,11 @@ class UserInfoViewModel: ObservableObject {
         return self.userInfo.getName()
     }
     
-    func setDob(dob: String) {
+    func setDob(dob: Date) {
         self.userInfo.setDob(dob: dob)
     }
     
-    func getDob() -> String {
+    func getDob() -> Date {
         return self.userInfo.getDob()
     }
     
