@@ -27,7 +27,7 @@ struct SettingView: View {
         VStack {
             switch page {
             case 1:
-                FirstPage(username: $username, birthday: $birthday, email: $email, phone: $phone)
+                FirstPage(userInfoDto: $userInfoDto, username: $username, birthday: $birthday, email: $email, phone: $phone)
             case 2:
                 SecondPage(maritalStatus: $maritalStatus, gender: $gender, religion: $gender)
             case 3:
@@ -35,19 +35,23 @@ struct SettingView: View {
             case 4:
                 ImagePage()
             default:
-                FirstPage(username: $username, birthday: $birthday, email: $email, phone: $phone)
+                FirstPage(userInfoDto: $userInfoDto, username: $username, birthday: $birthday, email: $email, phone: $phone)
             }
-            Section{
-                Button("Next") {
-                    page += 1
-                }
-                .frame(width: .infinity, alignment: .center)
+            Button("Next") {
+                page += 1
+            }
+            Button("Create") {
+                userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
+            }
+            Button("Test") {
+                print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
             }
         }
     }
 }
 
 struct FirstPage: View {
+    @Binding var userInfoDto: UserInfo
     @Binding var username: String
     @Binding var birthday: Date
     @Binding var email: String
