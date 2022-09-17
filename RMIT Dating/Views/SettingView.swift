@@ -16,7 +16,7 @@ struct SettingView: View {
     @EnvironmentObject var userVM: UserViewModel
     
     @State var userInfoDto: UserInfo = UserInfo()
-    @State var page: Int = 4
+    @State var page: Int = 1
     
     @State var maritalStatus: String = ""
     @State var gender: String = ""

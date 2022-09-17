@@ -11,6 +11,7 @@ import Firebase
 
 struct LoginView: View {
     @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     
     @StateObject var loginVM: LoginViewModel = LoginViewModel()
     
@@ -68,7 +69,7 @@ struct LoginView: View {
                 loginVM.signInProcessing = false
                 self.loginVM.signInSuccess = true
                 self.userVM.setUser(user:User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
-                print(userVM.getUser())
+                userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID())
             }
         }
     }
@@ -97,5 +98,6 @@ struct AppImage: View {
 struct LoginView_Preview: PreviewProvider {
     static var previews: some View {
         LoginView().environmentObject(UserViewModel())
+            .environmentObject(UserInfoViewModel())
     }
 }

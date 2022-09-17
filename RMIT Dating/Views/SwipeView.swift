@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SwipeView: View {
+    
+    @EnvironmentObject var targetVM: TargetViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    
     var numberOfImages = sampleImagesArray.count
     
     @State private var showingTargetDetailView = false
@@ -43,10 +47,11 @@ struct SwipeView: View {
                 
                 HStack {
                     Button {
-                        //TODO: do something
+                        targetVM.dislikeTarget(userId: userInfoVM.getUserId())
                     } label: {
                         CircleInteractButton(image: Image(systemName: "multiply.circle"), color: ColorConstants.tinderPinkDarkColor)
                     }
+                    .disabled(targetVM.isOutOfTargets())
                     
 //                    Button {
 //                        //TODO: do something
@@ -55,10 +60,11 @@ struct SwipeView: View {
 //                    }
                     
                     Button {
-                        //TODO: do something
+                        targetVM.likeTarget(userId: userInfoVM.getUserId())
                     } label: {
                         CircleInteractButton(image: Image(systemName: "heart.fill"), color: ColorConstants.tinderPinkDarkColor)
                     }
+                    .disabled(targetVM.isOutOfTargets())
 
                 } //end HStack
                 Spacer()

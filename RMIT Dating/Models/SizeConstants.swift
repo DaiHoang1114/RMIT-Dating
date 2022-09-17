@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct SizeConstants{
     static let swipeImageHeight: CGFloat = 500

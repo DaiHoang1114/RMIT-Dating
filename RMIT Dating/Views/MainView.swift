@@ -11,6 +11,9 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var loginVM: LoginViewModel
     
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    @StateObject private var targetVM: TargetViewModel = TargetViewModel()
+    
     var body: some View {
         TabView {
             UserInfoView(loginVM: loginVM)
@@ -23,6 +26,10 @@ struct MainView: View {
                     Image(systemName: "suit.heart.fill")
                     Text("Swipe")
                 }
+                .onAppear {
+                    targetVM.fetchTargets(userInfo: userInfoVM.getUserInfo())
+                }
+                .environmentObject(targetVM)
             MessageView()
                 .tabItem() {
                     Image(systemName: "message")
@@ -35,6 +42,6 @@ struct MainView: View {
 struct MainView_Previews : PreviewProvider {
     static var previews: some View {
         MainView(loginVM: LoginViewModel())
-        
+            .environmentObject(UserInfoViewModel())
     }
 }
