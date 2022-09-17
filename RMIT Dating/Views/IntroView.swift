@@ -15,29 +15,35 @@ struct IntroView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                // Logo
-                Image("logo")
-                    .frame(width: 150, height: 150, alignment: .center)
-                    .padding(.bottom, 50)
+            ZStack {
+                ColorConstants.tinderPinkLightColor
+//                    .opacity(0.5)
+                    .edgesIgnoringSafeArea(.all)
                 
-                // Button Log in
-                NavigationLink {
-                    LoginView()
+                VStack {
+                    // Logo
+                    Image("logo")
+                        .frame(width: 150, height: 150, alignment: .center)
+                        .padding(.bottom, 50)
+                    
+                    // Button Log in
+                    NavigationLink {
+                        LoginView()
                     } label: {
                         Text("Log in")
                             .modifier(ButtonModifier())
-                }
-                
-                // Button Sign Up
-                NavigationLink {
-                    SignupView()
+                    }
+                    
+                    // Button Sign Up
+                    NavigationLink {
+                        SignupView()
                     } label: {
                         Text("Sign Up")
                             .modifier(ButtonModifier())
-                }
-            }
-        }
+                    }
+                } //end VStack
+            } //end ZStack
+        } //end NavigationView
     }
 }
 

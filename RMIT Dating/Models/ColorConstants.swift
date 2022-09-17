@@ -11,5 +11,8 @@ import SwiftUI
 struct ColorConstants{
     static let lightGreyColor = Color(red: 0.831, green: 0.831, blue: 0.831)
     
-    static let lightBlueGreyColor = Color("LightBlueGrey");
+    static let lightBlueGreyColor = Color("LightBlueGrey")
+    static let tinderPinkDarkColor = Color("TinderPinkDark")
+    static let tinderPinkLightColor = Color("TinderPinkLight")
+    
 }
