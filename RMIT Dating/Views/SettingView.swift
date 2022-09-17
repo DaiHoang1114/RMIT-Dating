@@ -12,42 +12,166 @@ struct SettingView: View {
     @EnvironmentObject var userInfoVM: UserInfoViewModel
     @EnvironmentObject var userVM: UserViewModel
     
-    var dateFormat: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }
-    
     @State var userInfoDto: UserInfo = UserInfo()
+    @State var page: Int = 1
     
     var body: some View {
         VStack {
-            Form {
-                TextField(text: $userInfoDto.name) {
-                    Text("Full Name")
-                }
-                
-                DatePicker(selection: $userInfoDto.dob, in: ...Date(), displayedComponents: .date) {
-                    Text("Date of Birth")
-                        .foregroundColor(.gray)
-                }
-                .fixedSize()
-                
-                TextField(text: $userInfoDto.phone) {
-                    Text("Phone")
-                }
-                
-                Section{
-                    Button("Next") {
-                        userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
-                    }
-                    Button("Test") {
-                        print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
-                    }
-                }
-                
+            switch page {
+            case 1:
+                FirstPage(userInfoDto: $userInfoDto)
+            case 2:
+                SecondPage(userInfoDto: $userInfoDto)
+            case 3:
+                ThirdPage(userInfoDto: $userInfoDto)
+            case 4:
+                ImagePage()
+            default:
+                FirstPage(userInfoDto: $userInfoDto)
+            }
+            Button("Next") {
+                page += 1
+            }
+            Button("Create") {
+                userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
+            }
+            Button("Test") {
+                print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
             }
         }
+    }
+}
+
+struct FirstPage: View {
+    @Binding var userInfoDto: UserInfo
+    
+    var body: some View {
+        Form {
+            TextField(text: $userInfoDto.name) {
+                Text("Name")
+            }
+            DatePicker(selection: $userInfoDto.dob, in: ...Date(), displayedComponents: .date) {
+                Text("Birthday")
+                    .foregroundColor(.gray)
+            }
+            .fixedSize()
+            TextField(text: $userInfoDto.phone) {
+                Text("Phone")
+            }
+        }
+    }
+}
+
+struct SecondPage: View {
+    @Binding var userInfoDto: UserInfo
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Picker(selection: $userInfoDto.maritalStatus) {
+                    Text("Single").tag("Single")
+                    Text("Married").tag("Married")
+                } label: {
+                    Text("Marital Status:")
+                }
+                
+                Picker(selection: $userInfoDto.gender) {
+                    Text("Male").tag("Male")
+                    Text("Female").tag("Female")
+                    Text("Others").tag("Others")
+
+                } label: {
+                    Text("Gender")
+                }
+                
+                Picker(selection: $userInfoDto.religion) {
+                    Text("Buddha").tag("Buddha")
+                    Text("Christian").tag("Christian")
+                    Text("Muslim").tag("Muslim")
+                    Text("None").tag("None")
+                    Text("Others").tag("Others")
+                } label: {
+                    Text("Religion")
+                }
+            }
+        }
+    }
+}
+
+struct ThirdPage: View {
+    @Binding var userInfoDto: UserInfo
+    
+    let hobbiesList = ["Sport", "Esport"]
+    let musicList = ["Pop", "Rock", "Classic"]
+    
+    var body: some View {
+        Form {
+            Section {
+                Text("Hobbies")
+                ForEach(hobbiesList, id: \.self) { item in
+                    SelectionRow (
+                        title: item,
+                        selected: userInfoDto.hobbies.contains(item))
+                    {
+                        if userInfoDto.hobbies.contains(item) {
+                            userInfoDto.hobbies.removeAll
+                            {
+                                selectedItem in
+                                selectedItem == item
+                            }
+                        } else {
+                            userInfoDto.hobbies.append(item)
+                        }
+                    }
+                }
+            }
+            
+            Section {
+                Text("Music")
+                ForEach(musicList, id: \.self) { item in
+                    SelectionRow (
+                        title: item,
+                        selected: userInfoDto.musics.contains(item))
+                    {
+                        if userInfoDto.musics.contains(item) {
+                            userInfoDto.musics.removeAll
+                            {
+                                selectedItem in
+                                selectedItem == item
+                            }
+                        } else {
+                            userInfoDto.musics.append(item)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct ImagePage: View {
+    
+    var body: some View {
+        Text("")
+    }
+}
+    
+struct SelectionRow: View {
+    var title: String
+    var selected: Bool
+    var action: () -> Void
+    
+    var body: some View {
+        Button(action: action, label: {
+            HStack {
+                Text(title)
+                    .foregroundColor(.black)
+                if selected {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                }
+            }
+        })
     }
 }
 
