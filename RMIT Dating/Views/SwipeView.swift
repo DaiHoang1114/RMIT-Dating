@@ -8,47 +8,41 @@
 import SwiftUI
 
 struct SwipeView: View {
+    var numberOfImages = sampleImagesArray.count
+    
     var body: some View {
         ZStack {
             VStack {
-                Image("logo")
-                    .resizable()
-                    .frame(width: 100)
-                
-                // Image Scroll
-                VStack {
-                    Divider()
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 10) {
-                            ForEach(0..<10) { index in
-                                CardImage(image: Image("avatar-sample"), label: "", width: 350, height: 500)
-                            }
-                        }.padding()
-                    }.frame(height: 500)
-                    Divider()
-                    Spacer()
+                //MARK: Image Scroll
+                TabView {
+                    ForEach(0..<numberOfImages, id: \.self) {
+                        imIdx in
+                            CardImage(image: sampleImagesArray[imIdx], label: "", width: 350, height: 500)
+                    }
                 }
-                Spacer()
-                
-                // Row
+                .tabViewStyle(PageTabViewStyle())
+            
                 HStack {
-                    Image(systemName: "multiply.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .leading)
-                    Spacer()
-                    Image(systemName: "star")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .center)
-                    Spacer()
-                    Image(systemName: "heart.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .trailing)
-                }
-                    .padding(.bottom, 60)
-                    .padding([.leading, .trailing], 40)
+                    Button {
+                        //TODO: do something
+                    } label: {
+                        CircleInteractButton(image: Image(systemName: "multiply.circle"), color: ColorConstants.tinderPinkDarkColor)
+                    }
+                    
+                    Button {
+                        //TODO: do something
+                    } label: {
+                        CircleInteractButton(image: Image(systemName: "star.fill"), color: Color(.blue))
+                    }
+                    
+                    Button {
+                        //TODO: do something
+                    } label: {
+                        CircleInteractButton(image: Image(systemName: "heart.fill"), color: ColorConstants.tinderPinkDarkColor)
+                    }
+
+                } //end HStack
+                Spacer()
 
             }
         }

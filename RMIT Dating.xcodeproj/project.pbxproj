@@ -13,6 +13,8 @@
 		139F189B28D204D5004F258B /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139F189A28D204D5004F258B /* Modifiers.swift */; };
 		BC28ED2F28D563FF0056C8C8 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED2E28D563FF0056C8C8 /* CircleImage.swift */; };
 		BC28ED3128D56F5C0056C8C8 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */; };
+		BC28ED3728D5BC160056C8C8 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3628D5BC160056C8C8 /* TestData.swift */; };
+		BC28ED3928D5BD6C0056C8C8 /* CircleInteractButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */; };
 		F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375728CDAA13007B4536 /* SwipeView.swift */; };
 		F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375928CDAA56007B4536 /* MessageView.swift */; };
 		F40C375C28CDB57D007B4536 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375B28CDB57D007B4536 /* SettingView.swift */; };
@@ -42,6 +44,8 @@
 		139F189A28D204D5004F258B /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		BC28ED2E28D563FF0056C8C8 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		BC28ED3628D5BC160056C8C8 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleInteractButton.swift; sourceTree = "<group>"; };
 		F40C375728CDAA13007B4536 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		F40C375928CDAA56007B4536 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		F40C375B28CDB57D007B4536 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 				139F189A28D204D5004F258B /* Modifiers.swift */,
 				BC28ED2E28D563FF0056C8C8 /* CircleImage.swift */,
 				BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */,
+				BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 				F4FE700928C33AE200A6153A /* ColorConstants.swift */,
 				F43B976E28D2E20D00040C54 /* User.swift */,
 				F4C5325D28D41FE4006DF3B5 /* UserInfo.swift */,
+				BC28ED3628D5BC160056C8C8 /* TestData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 				F4C5325E28D41FE4006DF3B5 /* UserInfo.swift in Sources */,
 				F4FE700C28C34F5500A6153A /* SignupView.swift in Sources */,
 				F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */,
+				BC28ED3728D5BC160056C8C8 /* TestData.swift in Sources */,
 				F4C5325C28D33AD8006DF3B5 /* MainView.swift in Sources */,
 				F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */,
 				F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */,
@@ -259,6 +266,7 @@
 				F43B976F28D2E20D00040C54 /* User.swift in Sources */,
 				F4FE700A28C33AE200A6153A /* ColorConstants.swift in Sources */,
 				F42217AE28CF75C100A9BD7F /* MessageList.swift in Sources */,
+				BC28ED3928D5BD6C0056C8C8 /* CircleInteractButton.swift in Sources */,
 				F42217AC28CF68DF00A9BD7F /* SplashView.swift in Sources */,
 				F42217B228CF77B000A9BD7F /* MessageCard.swift in Sources */,
 				F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */,

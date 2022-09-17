@@ -17,7 +17,8 @@ struct CardImage: View {
         VStack {
             image
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+//                .aspectRatio(contentMode: .fill)
+                .scaledToFill()
                 .frame(width: width, height: height)
                 .clipped()
                 .cornerRadius(50)
