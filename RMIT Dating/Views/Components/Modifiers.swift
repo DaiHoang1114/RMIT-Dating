@@ -31,6 +31,15 @@ struct ButtonModifier: ViewModifier {
     }
 }
 
+struct InfoButtonModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .font(.title)
+      .accentColor(.white)
+      .padding()
+  }
+}
+
 struct InterestModifier: ViewModifier {
     func body(content: Content) -> some View {
         content

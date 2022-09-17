@@ -20,7 +20,7 @@ struct MessageView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 10) {
                     ForEach(0..<10) { index in
-                        CardImage(image: Image("avatar-sample"), label: "Jisoo", width: 200, height: 300)
+                        CardImage(image: Image("avatar-sample"), label: "Jisoo")
                     }
                 }.padding()
             }

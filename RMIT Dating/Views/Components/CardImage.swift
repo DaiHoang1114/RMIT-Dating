@@ -10,8 +10,6 @@ import SwiftUI
 struct CardImage: View {
     var image: Image
     var label: String
-    var width: CGFloat
-    var height: CGFloat
     
     var body: some View {
         VStack {
@@ -19,7 +17,7 @@ struct CardImage: View {
                 .resizable()
 //                .aspectRatio(contentMode: .fill)
                 .scaledToFill()
-                .frame(width: width, height: height)
+                .frame(width: 200, height: 300)
                 .clipped()
                 .cornerRadius(50)
             
@@ -30,6 +28,6 @@ struct CardImage: View {
 
 struct CardImage_Previews: PreviewProvider {
     static var previews: some View {
-        CardImage(image: Image("avatar-sample"), label: "Jisoo", width: 200, height: 300)
+        CardImage(image: Image("avatar-sample"), label: "Jisoo")
     }
 }
