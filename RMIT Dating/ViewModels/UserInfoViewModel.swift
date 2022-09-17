@@ -6,12 +6,33 @@
 //
 
 import Foundation
+import SwiftUI
 import Firebase
+import FirebaseStorage
 
 class UserInfoViewModel: ObservableObject {
     @Published private var userInfo: UserInfo = UserInfo()
     
     let db = Firestore.firestore()
+
+    static func uploadImage(userId: String, image: UIImage, imageName: String) {
+        let storageRef = Storage.storage().reference()
+        let imageRef = storageRef.child("UserImages/\(userId)/\(imageName)")
+        let data = image.jpegData(compressionQuality: 1.0)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        if let data = data {
+            imageRef.putData(data, metadata: metadata) { metadata, error in
+                if let metadata = metadata {
+                    print(metadata)
+                }
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
     
     func createUserInfo(userId: String, userInfoDto: UserInfo) {
         var ref: DocumentReference? = nil

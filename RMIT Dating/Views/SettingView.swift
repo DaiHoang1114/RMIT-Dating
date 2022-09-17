@@ -18,6 +18,8 @@ struct SettingView: View {
     @State var userInfoDto: UserInfo = UserInfo()
     @State var page: Int = 1
     
+    @State var selectedUIImages: [UIImage] = []
+    
     var body: some View {
         VStack {
             switch page {
@@ -28,12 +30,20 @@ struct SettingView: View {
             case 3:
                 ThirdPage(userInfoDto: $userInfoDto)
             case 4:
-                ImagePage(images: $images)
+                ImagePage(images: $selectedUIImages)
             default:
                 FirstPage(userInfoDto: $userInfoDto)
             }
             Button("Next") {
                 page += 1
+                if page == 5 {
+                    var count = 1
+                    for image in selectedUIImages {
+                        // MARK: Need update to work with actual userID
+                        UserInfoViewModel.uploadImage(userId: "123", image: image, imageName: "\(count)")
+                        count += 1
+                    }
+                }
             }
             Button("Create") {
                 userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
