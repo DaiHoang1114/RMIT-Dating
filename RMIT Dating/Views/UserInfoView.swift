@@ -17,7 +17,7 @@ struct UserInfoView: View {
             VStack {
                 ZStack {
                     VStack {
-                        CircleImage(image: Image("avatar-sample"))
+                        CircleImage(image: Image("avatar-sample"), width: 150, height: 150)
                         
                         Text("\(name), \(age)".uppercased())
                             .font(.system(size: 35, weight: .bold))

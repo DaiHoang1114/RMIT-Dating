@@ -11,11 +11,9 @@ struct SwipeView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack {
-                    Text("Swipe View")
-                        .foregroundColor(Color.red)
-                }
-                .padding(.bottom, 100)
+                Image("logo")
+                    .resizable()
+                    .frame(width: 100)
                 
                 // Image Scroll
                 VStack {
@@ -23,8 +21,7 @@ struct SwipeView: View {
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {
                             ForEach(0..<10) { index in
-                                CardImage(label: "\(index)")
-                                    .frame(width: 350, height: 350)
+                                CardImage(image: Image("avatar-sample"), label: "", width: 350, height: 500)
                             }
                         }.padding()
                     }.frame(height: 500)

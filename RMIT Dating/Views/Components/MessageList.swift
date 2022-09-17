@@ -14,13 +14,12 @@ struct MessageList: View {
             ScrollView(.vertical) {
                 VStack(spacing: 10) {
                     ForEach(0..<10) { index in
-                        MessageCard()
+                        MessageCard(image: Image("avatar-sample"), name: "jisoo96", message: "i love you <3")
                             .frame(width: 400, height: 100)
                     }
                 }.padding()
             }.frame(height: 400)
 //            Divider()
-            Spacer()
         }
     }
 }
