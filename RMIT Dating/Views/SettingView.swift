@@ -35,9 +35,6 @@ struct SettingView: View {
             Button("Create") {
                 userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
             }
-            Button("Test") {
-                print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
-            }
         }
     }
 }
