@@ -30,3 +30,32 @@ struct ButtonModifier: ViewModifier {
             .cornerRadius(15.0)
     }
 }
+
+struct InfoButtonModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .font(.title)
+      .accentColor(.white)
+      .padding()
+  }
+}
+
+struct InterestModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.gray)
+            .padding(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(.gray, lineWidth: 2)
+            )
+    }
+}
+
+struct InfoTextModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.top, 5)
+            .padding(.bottom, 10)
+    }
+}

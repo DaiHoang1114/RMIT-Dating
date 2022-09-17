@@ -16,21 +16,7 @@ struct SettingView: View {
     @EnvironmentObject var userVM: UserViewModel
     
     @State var userInfoDto: UserInfo = UserInfo()
-    @State var page: Int = 4
-    
-    @State var username: String = ""
-    @State var birthday = Date()
-    @State var email: String = ""
-    @State var phone: String = ""
-    
-    @State var maritalStatus: String = ""
-    @State var gender: String = ""
-    @State var religion: String = ""
-    
-    @State var hobbies: [String] = []
-    @State var music: [String]  = []
-    
-    @State var images: [UIImage] = []
+    @State var page: Int = 1
     
     var body: some View {
         VStack {
@@ -51,9 +37,6 @@ struct SettingView: View {
             }
             Button("Create") {
                 userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
-            }
-            Button("Test") {
-                print(userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID()))
             }
         }
     }
@@ -107,7 +90,6 @@ struct SecondPage: View {
                     Text("Muslim").tag("Muslim")
                     Text("None").tag("None")
                     Text("Others").tag("Others")
-
                 } label: {
                     Text("Religion")
                 }

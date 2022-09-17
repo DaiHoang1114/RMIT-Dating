@@ -18,9 +18,9 @@ struct MessageList: View {
                             .frame(width: 400, height: 100)
                     }
                 }.padding()
-            }.frame(height: 400)
+            }
 //            Divider()
-        }
+        }.frame(height: 350)
     }
 }
 

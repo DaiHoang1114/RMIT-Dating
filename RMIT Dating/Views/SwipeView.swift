@@ -8,50 +8,72 @@
 import SwiftUI
 
 struct SwipeView: View {
+    
+    @EnvironmentObject var targetVM: TargetViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    
+    var numberOfImages = sampleImagesArray.count
+    
+    @State private var showingTargetDetailView = false
+    
     var body: some View {
         ZStack {
             VStack {
-                Image("logo")
-                    .resizable()
-                    .frame(width: 100)
-                
-                // Image Scroll
+                //MARK: Image Scroll
                 VStack {
-                    Divider()
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 10) {
-                            ForEach(0..<10) { index in
-                                CardImage(image: Image("avatar-sample"), label: "", width: 350, height: 500)
-                            }
-                        }.padding()
-                    }.frame(height: 500)
-                    Divider()
-                    Spacer()
-                }
+                    TabView {
+                        ForEach(0..<numberOfImages, id: \.self) {
+                            imIdx in
+                            CardImageSwipe(image: sampleImagesArray[imIdx])
+                        }
+                    } //end TabView
+                    .tabViewStyle(PageTabViewStyle())
+                    .frame(height: SizeConstants.swipeImageHeight)
+                    .overlay(
+                        // MARK: - INFO
+                        Button(action: {
+                            self.showingTargetDetailView = true
+                        }) {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(ColorConstants.tinderPinkDarkColor)
+                        }
+                            .modifier(InfoButtonModifier())
+//                                .offset(x: -20, y: -100)
+                        ,alignment: .bottomTrailing
+                    ) //end overlay of TabView
+                } //end VStack
+                
                 Spacer()
                 
-                // Row
                 HStack {
-                    Image(systemName: "multiply.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .leading)
-                    Spacer()
-                    Image(systemName: "star")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .center)
-                    Spacer()
-                    Image(systemName: "heart.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(minHeight: 20, idealHeight: 50, maxHeight: 60, alignment: .trailing)
-                }
-                    .padding(.bottom, 60)
-                    .padding([.leading, .trailing], 40)
+                    Button {
+                        targetVM.dislikeTarget(userId: userInfoVM.getUserId())
+                    } label: {
+                        CircleInteractButton(image: Image(systemName: "multiply.circle"), color: ColorConstants.tinderPinkDarkColor)
+                    }
+                    .disabled(targetVM.isOutOfTargets())
+                    
+//                    Button {
+//                        //TODO: do something
+//                    } label: {
+//                        CircleInteractButton(image: Image(systemName: "star.fill"), color: Color(.blue))
+//                    }
+                    
+                    Button {
+                        targetVM.likeTarget(userId: userInfoVM.getUserId())
+                    } label: {
+                        CircleInteractButton(image: Image(systemName: "heart.fill"), color: ColorConstants.tinderPinkDarkColor)
+                    }
+                    .disabled(targetVM.isOutOfTargets())
 
-            }
-        }
+                } //end HStack
+                Spacer()
+
+            } //end VStack
+        } //end ZStack
+        .sheet(isPresented: $showingTargetDetailView) {
+            TargetDetailsView()
+          }
         
     }
 }

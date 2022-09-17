@@ -19,7 +19,12 @@ class UserInfoViewModel: ObservableObject {
             "userId": userId,
             "name": userInfoDto.name,
             "dob": userInfoDto.dob,
-            "phone": userInfoDto.phone
+            "phone": userInfoDto.phone,
+            "maritalStatus": userInfoDto.maritalStatus,
+            "gender": userInfoDto.gender,
+            "religion": userInfoDto.religion,
+            "hobbies": userInfoDto.hobbies,
+            "musics": userInfoDto.musics
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -37,7 +42,12 @@ class UserInfoViewModel: ObservableObject {
             "userId": userInfoDto.userId,
             "name": userInfoDto.name,
             "dob": userInfoDto.dob,
-            "phone": userInfoDto.phone
+            "phone": userInfoDto.phone,
+            "maritalStatus": userInfoDto.maritalStatus,
+            "gender": userInfoDto.gender,
+            "religion": userInfoDto.religion,
+            "hobbies": userInfoDto.hobbies,
+            "musics": userInfoDto.musics
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -47,26 +57,26 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
-    func fetchUserInfoByUserId(userId: String) -> UserInfo {
-        
-        var fetchedUserInfo = UserInfo()
-        
+    func fetchUserInfoByUserId(userId: String) {
         db.collection("UserInfos").whereField("userId", isEqualTo: userId)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    print("calling")
                     for document in querySnapshot!.documents {
-                        fetchedUserInfo.setUserId(userId: document.data()["userId"] as! String)
-                        fetchedUserInfo.setName(name: document.data()["name"] as! String)
-                        fetchedUserInfo.setDob(dob: self.convertStringToDate(stringDate: document.data()["dob"] as! String))
-                        fetchedUserInfo.setPhone(phone: document.data()["phone"] as! String)
+                        self.userInfo.setUserId(userId: document.data()["userId"] as! String)
+                        self.userInfo.setName(name: document.data()["name"] as! String)
+                        self.userInfo.setDob(dob: (document.data()["dob"] as! Timestamp).dateValue())
+                        self.userInfo.setPhone(phone: document.data()["phone"] as! String)
+                        self.userInfo.setMaritalStatus(maritalStatus: document.data()["maritalStatus"] as! String)
+                        self.userInfo.setGender(gender: document.data()["gender"] as! String)
+                        self.userInfo.setReligion(religion: document.data()["religion"] as! String)
+                        self.userInfo.setHobbies(hobbies: document.data()["hobbies"] as! [String])
+                        self.userInfo.setMusics(musics: document.data()["musics"] as! [String])
                     }
+                    print(self.userInfo)
                 }
         }
-        
-        return fetchedUserInfo
     }
     
     private func convertStringToDate(stringDate: String) -> Date {

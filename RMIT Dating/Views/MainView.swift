@@ -9,10 +9,14 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var loginVM: LoginViewModel
+    
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    @StateObject private var targetVM: TargetViewModel = TargetViewModel()
     
     var body: some View {
         TabView {
-            UserInfoView()
+            UserInfoView(loginVM: loginVM)
                 .tabItem() {
                     Image(systemName: "person.fill")
                     Text("Profile")
@@ -22,6 +26,10 @@ struct MainView: View {
                     Image(systemName: "suit.heart.fill")
                     Text("Swipe")
                 }
+                .onAppear {
+                    targetVM.fetchTargets(userInfo: userInfoVM.getUserInfo())
+                }
+                .environmentObject(targetVM)
             MessageView()
                 .tabItem() {
                     Image(systemName: "message")
@@ -33,7 +41,7 @@ struct MainView: View {
 
 struct MainView_Previews : PreviewProvider {
     static var previews: some View {
-        MainView()
-        
+        MainView(loginVM: LoginViewModel())
+            .environmentObject(UserInfoViewModel())
     }
 }
