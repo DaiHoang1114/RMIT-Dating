@@ -26,7 +26,7 @@ struct LoginView: View {
         } else {
             VStack {
                 WelcomeText()
-                
+                AppImage()
                 TextField("Email", text: $email)
                     .modifier(TextFieldInputModifier())
                 
@@ -90,12 +90,11 @@ struct WelcomeText: View {
 
 struct AppImage: View {
     var body: some View {
-        return Image("AppImage")
+        return Image("logo")
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 150, height: 150)
             .clipped()
-            .cornerRadius(150)
             .padding(.bottom, 75)
     }
 }
