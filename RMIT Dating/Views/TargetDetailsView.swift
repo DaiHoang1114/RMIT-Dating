@@ -49,26 +49,11 @@ struct TargetDetailsView: View {
                     }
                     HStack {
                         Text("Coffee")
-                            .foregroundColor(.gray)
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 18)
-                                    .stroke(.gray, lineWidth: 2)
-                            )
+                            .modifier(InterestModifier())
                         Text("Music")
-                            .foregroundColor(.gray)
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 18)
-                                    .stroke(.gray, lineWidth: 2)
-                            )
+                            .modifier(InterestModifier())
                         Text("Cooking")
-                            .foregroundColor(.gray)
-                            .padding(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 18)
-                                    .stroke(.gray, lineWidth: 2)
-                            )
+                            .modifier(InterestModifier())
                         Spacer()
                     }
                     .padding(.bottom, 20)
