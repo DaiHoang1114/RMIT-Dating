@@ -12,6 +12,11 @@ struct MainView: View {
     
     var body: some View {
         TabView {
+            UserInfoView()
+                .tabItem() {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
             SwipeView()
                 .tabItem() {
                     Image(systemName: "suit.heart.fill")
@@ -21,11 +26,6 @@ struct MainView: View {
                 .tabItem() {
                     Image(systemName: "message")
                     Text("Message")
-                }
-            UserInfoView()
-                .tabItem() {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
                 }
         }
     }

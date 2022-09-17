@@ -9,42 +9,33 @@ import SwiftUI
 
 struct MessageView: View {
     var body: some View {
-        ZStack {
-            VStack {
-                // Image Scroll
-                VStack {
-                    HStack {
-                        Text("New Matches")
-                            .foregroundColor(Color.red)
-                        Spacer()
+        VStack {
+            HStack {
+                Text("New Matches")
+                    .foregroundColor(Color.red)
+                Spacer()
+            }.padding(.leading, 20)
+
+            Divider()
+            ScrollView(.horizontal) {
+                HStack(spacing: 10) {
+                    ForEach(0..<10) { index in
+                        CardImage(image: Image("avatar-sample"), label: "Jisoo", width: 200, height: 300)
                     }
-                    .padding(.leading, 20)
-                    
-                    Divider()
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 10) {
-                            ForEach(0..<10) { index in
-                                CardImage(label: "\(index)")
-                                    .frame(width: 200, height: 200)
-                            }
-                        }.padding()
-                    }
-                    Divider()
-                    
-                    
-                    HStack {
-                        Text("Messages")
-                            .foregroundColor(Color.red)
-                        Spacer()
-                    }
-                    .padding(.leading, 20)
-                    Spacer()
-                    
-                    // Message List
-                    MessageList()
-                }
+                }.padding()
             }
-        }
+            Divider()
+            
+            HStack {
+                Text("Messages")
+                    .foregroundColor(Color.red)
+                Spacer()
+            }.padding(.leading, 20)
+            // Message List
+            MessageList()
+            
+        } //end VStack
+        .padding(.top, 100)
     }
 }
 

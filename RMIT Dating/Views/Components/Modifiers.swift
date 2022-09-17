@@ -26,7 +26,7 @@ struct ButtonModifier: ViewModifier {
             .foregroundColor(.white)
             .padding()
             .frame(width: 220, height: 60)
-            .background(Color.green)
+            .background(ColorConstants.tinderPinkDarkColor)
             .cornerRadius(15.0)
     }
 }

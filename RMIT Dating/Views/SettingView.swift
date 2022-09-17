@@ -12,13 +12,8 @@ struct SettingView: View {
     @EnvironmentObject var userInfoVM: UserInfoViewModel
     @EnvironmentObject var userVM: UserViewModel
     
-    var dateFormat: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }
-    
     @State var userInfoDto: UserInfo = UserInfo()
+    @State var page: Int = 1
     
     @State var username: String = ""
     @State var birthday = Date()
@@ -38,15 +33,15 @@ struct SettingView: View {
         VStack {
             switch page {
             case 1:
-                FirstPage(userInfoDto: $userInfoDto, username: $username, birthday: $birthday, email: $email, phone: $phone)
+                FirstPage(userInfoDto: $userInfoDto)
             case 2:
-                SecondPage(maritalStatus: $maritalStatus, gender: $gender, religion: $gender)
+                SecondPage(userInfoDto: $userInfoDto)
             case 3:
-                ThirdPage(hobbies: $hobbies, music: $music)
+                ThirdPage(userInfoDto: $userInfoDto)
             case 4:
                 ImagePage()
             default:
-                FirstPage(userInfoDto: $userInfoDto, username: $username, birthday: $birthday, email: $email, phone: $phone)
+                FirstPage(userInfoDto: $userInfoDto)
             }
             Button("Next") {
                 page += 1
@@ -63,10 +58,6 @@ struct SettingView: View {
 
 struct FirstPage: View {
     @Binding var userInfoDto: UserInfo
-    @Binding var username: String
-    @Binding var birthday: Date
-    @Binding var email: String
-    @Binding var phone: String
     
     var body: some View {
         Form {
@@ -89,21 +80,19 @@ struct FirstPage: View {
 }
 
 struct SecondPage: View {
-    @Binding var maritalStatus: String
-    @Binding var gender: String
-    @Binding var religion: String
+    @Binding var userInfoDto: UserInfo
     
     var body: some View {
         NavigationView {
             Form {
-                Picker(selection: $maritalStatus) {
+                Picker(selection: $userInfoDto.maritalStatus) {
                     Text("Single").tag("Single")
                     Text("Married").tag("Married")
                 } label: {
                     Text("Marital Status:")
                 }
                 
-                Picker(selection: $gender) {
+                Picker(selection: $userInfoDto.gender) {
                     Text("Male").tag("Male")
                     Text("Female").tag("Female")
                     Text("Others").tag("Others")
@@ -112,7 +101,7 @@ struct SecondPage: View {
                     Text("Gender")
                 }
                 
-                Picker(selection: $gender) {
+                Picker(selection: $userInfoDto.religion) {
                     Text("Buddha").tag("Buddha")
                     Text("Christian").tag("Christian")
                     Text("Muslim").tag("Muslim")
@@ -128,25 +117,28 @@ struct SecondPage: View {
 }
 
 struct ThirdPage: View {
-    @Binding var hobbies: [String]
-    @Binding var music: [String]
+    @Binding var userInfoDto: UserInfo
     
     let hobbiesList = ["Sport", "Esport"]
     let musicList = ["Pop", "Rock", "Classic"]
-
     
     var body: some View {
         Form {
             Section {
                 Text("Hobbies")
                 ForEach(hobbiesList, id: \.self) { item in
-                    SelectionRow (title: item, selected: hobbies.contains(item)) {
-                        if hobbies.contains(item) {
-                            hobbies.removeAll { selectedItem in
+                    SelectionRow (
+                        title: item,
+                        selected: userInfoDto.hobbies.contains(item))
+                    {
+                        if userInfoDto.hobbies.contains(item) {
+                            userInfoDto.hobbies.removeAll
+                            {
+                                selectedItem in
                                 selectedItem == item
                             }
                         } else {
-                            hobbies.append(item)
+                            userInfoDto.hobbies.append(item)
                         }
                     }
                 }
@@ -155,13 +147,18 @@ struct ThirdPage: View {
             Section {
                 Text("Music")
                 ForEach(musicList, id: \.self) { item in
-                    SelectionRow (title: item, selected: hobbies.contains(item)) {
-                        if hobbies.contains(item) {
-                            hobbies.removeAll { selectedItem in
+                    SelectionRow (
+                        title: item,
+                        selected: userInfoDto.musics.contains(item))
+                    {
+                        if userInfoDto.musics.contains(item) {
+                            userInfoDto.musics.removeAll
+                            {
+                                selectedItem in
                                 selectedItem == item
                             }
                         } else {
-                            hobbies.append(item)
+                            userInfoDto.musics.append(item)
                         }
                     }
                 }

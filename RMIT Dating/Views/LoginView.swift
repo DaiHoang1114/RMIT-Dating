@@ -22,6 +22,7 @@ struct LoginView: View {
     var body: some View {
         if signInSuccess {
             MainView()
+                .navigationBarBackButtonHidden(true)
         } else {
             VStack {
                 WelcomeText()
@@ -45,7 +46,7 @@ struct LoginView: View {
                         .modifier(ButtonModifier())
                 }
                 .disabled(!signInProcessing && !email.isEmpty && !password.isEmpty ? false : true)
-            }//VStack
+            }//end VStack
         }
     }
     
