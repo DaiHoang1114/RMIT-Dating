@@ -171,6 +171,7 @@ struct ImagePage: View {
     @Binding var images: [UIImage]
     @State var showLibrary = false
     let gridSpacing: CGFloat = 10
+    let gridPadding: CGFloat = 5
     
     let columns = [
         GridItem(spacing: 10),
@@ -179,34 +180,35 @@ struct ImagePage: View {
     ]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Button {
-                    showLibrary = true
-                } label: {
-                    ZStack {
-//                        RoundedRectangle(cornerRadius: 5)
-//                            .stroke()
-//                            .foregroundColor(.black)
-                        Image(systemName: "plus")
-                    }
-                }
-                if !images.isEmpty {
-                    let _ = print(images)
-                    LazyVGrid(columns: columns, spacing: gridSpacing) {
+        VStack {
+            Text("Your Images")
+                .font(.title)
+                .bold()
+            ScrollView {
+                let size: CGFloat = (UIScreen.main.bounds.width/3) - gridSpacing - gridPadding
+                LazyVGrid(columns: columns, spacing: gridSpacing) {
+                    if !images.isEmpty {
                         ForEach(images, id: \.self) { image in
-                            GeometryReader { geometry in
-                                let size: CGFloat = geometry.size.width
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: size, height: size, alignment: .center)
-                                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                            }
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: size, height: size, alignment: .center)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                        }
+                    }
+                    Button {
+                        showLibrary = true
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke()
+                                .foregroundColor(.black)
+                                .frame(width: size, height: size, alignment: .leading)
+                            Image(systemName: "plus")
                         }
                     }
                 }
-                
+                .padding(.horizontal, gridPadding)
             }
         }
         .sheet(isPresented: $showLibrary) {
