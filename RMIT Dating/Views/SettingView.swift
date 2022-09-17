@@ -5,6 +5,9 @@
 //  Created by Tri Nguyen on 11/09/2022.
 //
 
+
+// References: https://www.appcoda.com/swiftui-camera-photo-library/
+
 import SwiftUI
 
 struct SettingView: View {
@@ -13,7 +16,7 @@ struct SettingView: View {
     @EnvironmentObject var userVM: UserViewModel
     
     @State var userInfoDto: UserInfo = UserInfo()
-    @State var page: Int = 1
+    @State var page: Int = 4
     
     @State var username: String = ""
     @State var birthday = Date()
@@ -27,7 +30,7 @@ struct SettingView: View {
     @State var hobbies: [String] = []
     @State var music: [String]  = []
     
-    @State var page: Int = 1
+    @State var images: [UIImage] = []
     
     var body: some View {
         VStack {
@@ -39,7 +42,7 @@ struct SettingView: View {
             case 3:
                 ThirdPage(userInfoDto: $userInfoDto)
             case 4:
-                ImagePage()
+                ImagePage(images: $images)
             default:
                 FirstPage(userInfoDto: $userInfoDto)
             }
@@ -69,9 +72,6 @@ struct FirstPage: View {
                     .foregroundColor(.gray)
             }
             .fixedSize()
-            TextField(text: $email) {
-                Text("Email")
-            }
             TextField(text: $userInfoDto.phone) {
                 Text("Phone")
             }
@@ -168,9 +168,50 @@ struct ThirdPage: View {
 }
 
 struct ImagePage: View {
+    @Binding var images: [UIImage]
+    @State var showLibrary = false
+    let gridSpacing: CGFloat = 10
+    
+    let columns = [
+        GridItem(spacing: 10),
+        GridItem(spacing: 10),
+        GridItem(spacing: 10)
+    ]
     
     var body: some View {
-        Text("")
+        ScrollView {
+            VStack {
+                Button {
+                    showLibrary = true
+                } label: {
+                    ZStack {
+//                        RoundedRectangle(cornerRadius: 5)
+//                            .stroke()
+//                            .foregroundColor(.black)
+                        Image(systemName: "plus")
+                    }
+                }
+                if !images.isEmpty {
+                    let _ = print(images)
+                    LazyVGrid(columns: columns, spacing: gridSpacing) {
+                        ForEach(images, id: \.self) { image in
+                            GeometryReader { geometry in
+                                let size: CGFloat = geometry.size.width
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size, height: size, alignment: .center)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        .sheet(isPresented: $showLibrary) {
+            ImagePicker(selectedImages: $images)
+        }
     }
 }
     
@@ -190,6 +231,48 @@ struct SelectionRow: View {
                 }
             }
         })
+    }
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+    var source: UIImagePickerController.SourceType = .photoLibrary
+    @Environment(\.presentationMode) private var presentationMode
+    @Binding var selectedImages: [UIImage]
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = source
+        imagePicker.delegate = context.coordinator
+        
+        return imagePicker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+         
+        var parent: ImagePicker
+        
+        init(parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                if !parent.selectedImages.contains(image) {
+                    parent.selectedImages.append(image)
+                }
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
     }
 }
 
