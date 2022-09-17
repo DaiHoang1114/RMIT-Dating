@@ -69,7 +69,7 @@ class UserInfoViewModel: ObservableObject {
                     for document in querySnapshot!.documents {
                         fetchedUserInfo.setUserId(userId: document.data()["userId"] as! String)
                         fetchedUserInfo.setName(name: document.data()["name"] as! String)
-                        fetchedUserInfo.setDob(dob: (document.data()["dob"] as! Timestamp))
+                        fetchedUserInfo.setDob(dob: (document.data()["dob"] as! Timestamp).dateValue())
                         fetchedUserInfo.setPhone(phone: document.data()["phone"] as! String)
                         fetchedUserInfo.setMaritalStatus(maritalStatus: document.data()["maritalStatus"] as! String)
                         fetchedUserInfo.setGender(gender: document.data()["gender"] as! String)
