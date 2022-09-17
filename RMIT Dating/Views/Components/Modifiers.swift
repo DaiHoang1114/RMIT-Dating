@@ -30,3 +30,15 @@ struct ButtonModifier: ViewModifier {
             .cornerRadius(15.0)
     }
 }
+
+struct InterestModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.gray)
+            .padding(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(.gray, lineWidth: 2)
+            )
+    }
+}
