@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct MainView: View {
+    @ObservedObject var loginVM: LoginViewModel
     
     var body: some View {
         TabView {
-            UserInfoView()
+            UserInfoView(loginVM: loginVM)
                 .tabItem() {
                     Image(systemName: "person.fill")
                     Text("Profile")
@@ -33,7 +34,7 @@ struct MainView: View {
 
 struct MainView_Previews : PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(loginVM: LoginViewModel())
         
     }
 }

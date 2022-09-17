@@ -10,31 +10,26 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
-    
     @EnvironmentObject var userVM: UserViewModel
     
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var signInSuccess: Bool = false
-    @State var signInProcessing = false
-    @State var signInErrorMessage = ""
+    @StateObject var loginVM: LoginViewModel = LoginViewModel()
     
     var body: some View {
-        if signInSuccess {
-            MainView()
+        if loginVM.signInSuccess {
+            MainView(loginVM: loginVM)
                 .navigationBarBackButtonHidden(true)
         } else {
             VStack {
                 WelcomeText()
                 AppImage()
-                TextField("Email", text: $email)
+                TextField("Email", text: $loginVM.email)
                     .modifier(TextFieldInputModifier())
                 
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $loginVM.password)
                     .modifier(TextFieldInputModifier())
                 
-                if !signInSuccess && !signInErrorMessage.isEmpty {
-                    Text("Failed signing account: \(signInErrorMessage)")
+                if !loginVM.signInSuccess && !loginVM.signInErrorMessage.isEmpty {
+                    Text("Failed signing account: \(loginVM.signInErrorMessage)")
                         .offset(y: -10)
                         .foregroundColor(.red)
                 }
@@ -45,33 +40,33 @@ struct LoginView: View {
                     Text("Log in")
                         .modifier(ButtonModifier())
                 }
-                .disabled(!signInProcessing && !email.isEmpty && !password.isEmpty ? false : true)
+                .disabled(!loginVM.signInProcessing && !loginVM.email.isEmpty && !loginVM.password.isEmpty ? false : true)
             }//end VStack
         }
     }
     
     func signIn() {
-        signInProcessing = true
+        loginVM.signInProcessing = true
 
-        Auth.auth().signIn(withEmail: email, password: password)
+        Auth.auth().signIn(withEmail: loginVM.email, password: loginVM.password)
         {
             authResult, error in
 
             guard error == nil else {
-                signInProcessing = false
-                signInErrorMessage = error!.localizedDescription
+                loginVM.signInProcessing = false
+                loginVM.signInErrorMessage = error!.localizedDescription
                 return
             }
 
             switch authResult {
             case .none:
-                signInErrorMessage = "Could not sign in user."
-                signInProcessing = false
-                self.signInSuccess = false
+                loginVM.signInErrorMessage = "Could not sign in user."
+                loginVM.signInProcessing = false
+                self.loginVM.signInSuccess = false
             case .some(_):
-                signInErrorMessage = "User signed in"
-                signInProcessing = false
-                self.signInSuccess = true
+                loginVM.signInErrorMessage = "User signed in"
+                loginVM.signInProcessing = false
+                self.loginVM.signInSuccess = true
                 self.userVM.setUser(user:User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
                 print(userVM.getUser())
             }

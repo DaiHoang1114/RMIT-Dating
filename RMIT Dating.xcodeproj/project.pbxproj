@@ -15,6 +15,7 @@
 		BC28ED3128D56F5C0056C8C8 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */; };
 		BC28ED3728D5BC160056C8C8 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3628D5BC160056C8C8 /* TestData.swift */; };
 		BC28ED3928D5BD6C0056C8C8 /* CircleInteractButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */; };
+		BC28ED3B28D609CE0056C8C8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */; };
 		F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375728CDAA13007B4536 /* SwipeView.swift */; };
 		F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375928CDAA56007B4536 /* MessageView.swift */; };
 		F40C375C28CDB57D007B4536 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375B28CDB57D007B4536 /* SettingView.swift */; };
@@ -46,6 +47,7 @@
 		BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		BC28ED3628D5BC160056C8C8 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleInteractButton.swift; sourceTree = "<group>"; };
+		BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F40C375728CDAA13007B4536 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		F40C375928CDAA56007B4536 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		F40C375B28CDB57D007B4536 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				F43B977128D2F77000040C54 /* UserViewModel.swift */,
 				F4C5325F28D4271F006DF3B5 /* UserInfoViewModel.swift */,
+				BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */,
 				F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */,
 				F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */,
+				BC28ED3B28D609CE0056C8C8 /* LoginViewModel.swift in Sources */,
 				F4FE700728C3354900A6153A /* LoginView.swift in Sources */,
 				F43B977228D2F77000040C54 /* UserViewModel.swift in Sources */,
 				F43B976F28D2E20D00040C54 /* User.swift in Sources */,

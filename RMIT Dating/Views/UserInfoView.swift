@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct UserInfoView: View {
+    @ObservedObject var loginVM: LoginViewModel
     var name: String = "name"
     var age: String = "age"
     
@@ -40,6 +41,15 @@ struct UserInfoView: View {
                 } //end ZStack
                 
                 Spacer()
+                
+                Button {
+                    //sign out action
+                    loginVM.resetEnv()
+                } label: {
+                    Text("Sign out")
+                        .modifier(ButtonModifier())
+                        .padding(.bottom, 30)
+                }
             } //end VStack
         } //end NavigationView
 
@@ -48,7 +58,7 @@ struct UserInfoView: View {
 
 struct UserInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        UserInfoView()
+        UserInfoView(loginVM: LoginViewModel())
 //        UserInfoView(name: "Jisoo", age: "27")
     }
 }
