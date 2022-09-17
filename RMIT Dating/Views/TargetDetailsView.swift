@@ -12,7 +12,12 @@ struct TargetDetailsView: View {
         ZStack {
             VStack {
                 ImageScrollView()
-                
+                HStack {
+                    Spacer()
+                    Image("arrow-down")
+                        .padding(.trailing, 20)
+                   
+                }
                 VStack {
                     HStack {
                         Text("Name")
