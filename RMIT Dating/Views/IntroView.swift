@@ -22,44 +22,22 @@ struct IntroView: View {
                     .padding(.bottom, 50)
                 
                 // Button Log in
-                LogInViewButton()
+                NavigationLink {
+                    LoginView()
+                    } label: {
+                        Text("Log in")
+                            .modifier(ButtonModifier())
+                }
                 
                 // Button Sign Up
-                SignUpViewButton()
+                NavigationLink {
+                    SignupView()
+                    } label: {
+                        Text("Sign Up")
+                            .modifier(ButtonModifier())
+                }
             }
         }
-    }
-}
-
-struct SignUpViewButton : View {
-    var body: some View {
-        return NavigationLink {
-            SignupView()
-            } label: {
-                Text("Sign Up")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 220, height: 60)
-                    .background(Color.green)
-                    .cornerRadius(15.0)
-            }
-    }
-}
-
-struct LogInViewButton : View {
-    var body: some View {
-        return NavigationLink {
-            LoginView()
-            } label: {
-                Text("Log in")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 220, height: 60)
-                    .background(Color.green)
-                    .cornerRadius(15.0)
-            }
     }
 }
 
