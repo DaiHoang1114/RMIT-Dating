@@ -27,14 +27,14 @@ struct CardImageSwipe: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
 //                    .scaledToFill()
-                    .frame(width: geo.size.width * 0.8, height: 500)
+                    .frame(width: geo.size.width * 0.8, height: SizeConstants.swipeImageHeight)
                     .frame(width: geo.size.width)
                     .clipped()
                     .cornerRadius(50)
             }
             Spacer()
         } //end HStack
-
+        .frame(height: SizeConstants.swipeImageHeight)
     }
 }
 

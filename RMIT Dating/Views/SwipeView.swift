@@ -24,7 +24,7 @@ struct SwipeView: View {
                         }
                     } //end TabView
                     .tabViewStyle(PageTabViewStyle())
-                    .frame(height: 500)
+                    .frame(height: SizeConstants.swipeImageHeight)
                     .overlay(
                         // MARK: - INFO
                         Button(action: {

@@ -51,3 +51,11 @@ struct InterestModifier: ViewModifier {
             )
     }
 }
+
+struct InfoTextModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.top, 5)
+            .padding(.bottom, 10)
+    }
+}
