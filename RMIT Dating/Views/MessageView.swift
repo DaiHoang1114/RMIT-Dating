@@ -19,11 +19,11 @@ struct MessageView: View {
                         .foregroundColor(Color.red)
                     Spacer()
                 }.padding(.leading, 20)
-                
+
                 Divider()
                 ScrollView(.horizontal) {
                     HStack(spacing: 10) {
-                        ForEach(targetVM.getMatchInfos(), id:\.uuid) { matchInfo in
+                        ForEach(targetVM.getMatchInfos(), id:\.userId) { matchInfo in
                             CardImage(image: Image("avatar-sample"), label: matchInfo.getName())
                         }
                     }.padding()
@@ -37,11 +37,12 @@ struct MessageView: View {
                 }.padding(.leading, 20)
                 // Message List
                 MessageList()
-            } //end VStack
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-        } //end NavigationView
-    }
+                
+            }
+        } //end VStack
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
+    } //end navigation view
 }
 
 struct MessageView_Previews: PreviewProvider {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatView: View {
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     @StateObject var messagesVM = MessagesViewModel()
     
 //    var messageArray = ["Hi babe", "You are really cute", "It would be perfect if we can go out and chat"]
@@ -41,11 +42,15 @@ struct ChatView: View {
             MessageField()
                 .environmentObject(messagesVM)
         } //end VStack
+        .onAppear {
+            messagesVM.getMessages(isAdmin: userInfoVM.getName() == "Admin" ? true : false)
+        }
     }
 }
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView()
+            .environmentObject(UserInfoViewModel())
     }
 }

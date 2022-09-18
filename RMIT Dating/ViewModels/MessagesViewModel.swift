@@ -18,11 +18,11 @@ class MessagesViewModel: ObservableObject {
     
     let db = Firestore.firestore()
     
-    init() {
-        getMessages()
-    }
+//    init() {
+//        getMessages()
+//    }
     
-    func getMessages() {
+    func getMessages(isAdmin: Bool) {
         db.collection(dbName).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(String(describing: error))")
@@ -60,10 +60,16 @@ class MessagesViewModel: ObservableObject {
             if let id = self.messages.last?.id {
                 self.lastMessageId = id
             }
+            
+            if isAdmin {
+                for i in 0..<self.messages.count {
+                    self.messages[i].received.toggle()
+                }
+            }
         }
     } //end func
     
-    func sendMessage(text: String) {
+    func sendMessage(text: String, isAdmin: Bool) {
 //        do {
 //            let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
 //
@@ -71,7 +77,9 @@ class MessagesViewModel: ObservableObject {
 //        } catch {
 //            print("Error adding message to fire store: \(error)")
 //        }
-        let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
+        
+        let newMessage = Message(id: "\(UUID())", text: text, received: isAdmin ? true : false, timestamp: Date())
+        
         
 //        var ref: DocumentReference? = nil
         db.collection(dbName).addDocument(data: [

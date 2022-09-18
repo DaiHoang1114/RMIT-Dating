@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MessageField: View {
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     @EnvironmentObject var messagesVM: MessagesViewModel
     @State private var message = ""
     
@@ -16,7 +17,7 @@ struct MessageField: View {
             CustomTextField(placeholder: Text("Enter your message here"), text: $message)
             
             Button {
-                messagesVM.sendMessage(text: message)
+                messagesVM.sendMessage(text: message, isAdmin: userInfoVM.getName() == "Admin" ? true: false)
                 message = ""
             } label: {
                 Image(systemName: "paperplane.fill")
@@ -38,6 +39,7 @@ struct MessageField_Previews: PreviewProvider {
     static var previews: some View {
         MessageField()
             .environmentObject(MessagesViewModel())
+            .environmentObject(UserInfoViewModel())
     }
 }
 

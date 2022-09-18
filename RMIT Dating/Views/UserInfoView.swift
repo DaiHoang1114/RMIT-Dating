@@ -26,16 +26,17 @@ struct UserInfoView: View {
                         
                         
                         HStack {
-                            CircleButton(image: Image(systemName: "gear"), text: "settings")
-                            
-                            NavigationLink {
-                                SettingView()
+                            Button {
+                                //sign out action
+                                loginVM.resetEnv()
+                                userVM.reset()
                             } label: {
-                                CircleButton(image: Image(systemName: "pencil"), text: "edit profile")
+                                CircleButton(image: Image(systemName: "escape"), text: "log out")
                             }
                             .buttonStyle(PlainButtonStyle())
                             
-                            
+                            CircleButton(image: Image(systemName: "gear"), text: "settings")
+
                             CircleButton(image: Image(systemName: "checkerboard.shield"), text: "safety")
                         } // endHStack
                     } // end VStack
@@ -74,12 +75,6 @@ struct UserInfoView: View {
                             Spacer()
                         }
                         HStack {
-//                            Text("Coffee")
-//                                .modifier(InterestModifier())
-//                            Text("Music")
-//                                .modifier(InterestModifier())
-//                            Text("Cooking")
-//                                .modifier(InterestModifier())
                             ForEach(userInfoVM.getHobbies(), id: \.self) { hobby in
                                     Text(hobby)
                                         .modifier(InterestModifier())
@@ -109,15 +104,15 @@ struct UserInfoView: View {
                 
                 Spacer()
                 
-                Button {
-                    //sign out action
-                    loginVM.resetEnv()
-                    userVM.reset()
-                } label: {
-                    Text("Sign out")
-                        .modifier(ButtonModifier())
-                        .padding(.bottom, 30)
-                }
+//                Button {
+//                    //sign out action
+//                    loginVM.resetEnv()
+//                    userVM.reset()
+//                } label: {
+//                    Text("Sign out")
+//                        .modifier(ButtonModifier())
+//                        .padding(.bottom, 30)
+//                }
             } //end VStack
         } //end NavigationView
 
