@@ -32,6 +32,7 @@ struct ChatView: View {
             .background(ColorConstants.tinderPinkLightColor)
             
             MessageField()
+                .environmentObject(messagesVM)
         } //end VStack
     }
 }

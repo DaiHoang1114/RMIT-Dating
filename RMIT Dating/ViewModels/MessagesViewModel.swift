@@ -11,6 +11,8 @@ import Firebase
 //import FirebaseFirestoreSwift
 
 class MessagesViewModel: ObservableObject {
+    let dbName = "Messages"
+    
     @Published private(set) var messages: [Message] = []
     
     let db = Firestore.firestore()
@@ -20,7 +22,7 @@ class MessagesViewModel: ObservableObject {
     }
     
     func getMessages() {
-        db.collection("Messages").addSnapshotListener { (querySnapshot, error) in
+        db.collection(dbName).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(String(describing: error))")
                 return
@@ -54,5 +56,35 @@ class MessagesViewModel: ObservableObject {
             
             self.messages.sort {$0.timestamp < $1.timestamp}
         }
+    } //end func
+    
+    func sendMessage(text: String) {
+//        do {
+//            let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
+//
+//            try db.collection(dbName).document.setData(newMessage)
+//        } catch {
+//            print("Error adding message to fire store: \(error)")
+//        }
+        let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
+        
+        var ref: DocumentReference? = nil
+        ref = db.collection(dbName).addDocument(data: [
+            "id": newMessage.id,
+            "text": newMessage.text,
+            "received": newMessage.received,
+            "timestamp": newMessage.timestamp
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            }
+//            else {
+//                self.setUserInfo(userInfo: userInfoDto)
+//                self.setUserId(userId: userId)
+//                self.setUuid(uuid: ref!.documentID)
+//                print("Document added: \(self.getUserInfo())")
+//            }
+        }
+        
     }
 }
