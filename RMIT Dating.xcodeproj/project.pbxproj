@@ -11,6 +11,7 @@
 		139F189528D1F6D5004F258B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 139F189428D1F6D5004F258B /* FirebaseAuth */; };
 		139F189728D1F6D5004F258B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 139F189628D1F6D5004F258B /* FirebaseFirestore */; };
 		139F189B28D204D5004F258B /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139F189A28D204D5004F258B /* Modifiers.swift */; };
+		8814CEAB28D659A000D79AD5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8814CEAA28D659A000D79AD5 /* FirebaseStorage */; };
 		BC28ED2F28D563FF0056C8C8 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED2E28D563FF0056C8C8 /* CircleImage.swift */; };
 		BC28ED3128D56F5C0056C8C8 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */; };
 		BC28ED3728D5BC160056C8C8 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3628D5BC160056C8C8 /* TestData.swift */; };
@@ -100,6 +101,7 @@
 			files = (
 				139F189528D1F6D5004F258B /* FirebaseAuth in Frameworks */,
 				139F189728D1F6D5004F258B /* FirebaseFirestore in Frameworks */,
+				8814CEAB28D659A000D79AD5 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +237,7 @@
 			packageProductDependencies = (
 				139F189428D1F6D5004F258B /* FirebaseAuth */,
 				139F189628D1F6D5004F258B /* FirebaseFirestore */,
+				8814CEAA28D659A000D79AD5 /* FirebaseStorage */,
 			);
 			productName = "RMIT Dating";
 			productReference = F4FE6FF228C332ED00A6153A /* RMIT Dating.app */;
@@ -266,6 +269,7 @@
 			mainGroup = F4FE6FE928C332ED00A6153A;
 			packageReferences = (
 				139F189328D1F6D5004F258B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8814CEA928D659A000D79AD5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = F4FE6FF328C332ED00A6153A /* Products */;
 			projectDirPath = "";
@@ -542,6 +546,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		8814CEA928D659A000D79AD5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -554,6 +566,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 139F189328D1F6D5004F258B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		8814CEAA28D659A000D79AD5 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8814CEA928D659A000D79AD5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

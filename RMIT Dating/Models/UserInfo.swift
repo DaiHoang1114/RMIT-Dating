@@ -18,7 +18,7 @@ struct UserInfo {
     var religion: String
     var hobbies: [String]
     var musics: [String]
-    //images
+    var images: [String] = []
     
     mutating func setUuid(uuid: String) {
         self.uuid = uuid
@@ -98,6 +98,18 @@ struct UserInfo {
     
     func getMusics() -> [String] {
         return self.musics
+    }
+    
+    mutating func setImages(images: [String]) {
+        self.images = images
+    }
+    
+    mutating func addImage(image: String) {
+        self.images.append(image)
+    }
+    
+    func getImages() -> [String] {
+        return self.images
     }
     
     init(uuid: String, userId: String, name: String, dob: Date, phone: String, maritalStatus: String,

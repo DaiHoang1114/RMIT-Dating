@@ -9,6 +9,7 @@
 // References: https://www.appcoda.com/swiftui-camera-photo-library/
 
 import SwiftUI
+import FirebaseStorage
 
 struct SettingView: View {
     
@@ -18,14 +19,7 @@ struct SettingView: View {
     @State var userInfoDto: UserInfo = UserInfo()
     @State var page: Int = 1
     
-    @State var maritalStatus: String = ""
-    @State var gender: String = ""
-    @State var religion: String = ""
-    
-    @State var hobbies: [String] = []
-    @State var music: [String]  = []
-    
-    @State var images: [UIImage] = []
+    @State var selectedUIImages: [UIImage] = []
     
     var body: some View {
         VStack {
@@ -37,17 +31,20 @@ struct SettingView: View {
             case 3:
                 ThirdPage(userInfoDto: $userInfoDto)
             case 4:
-                ImagePage(images: $images)
+                ImagePage(images: $selectedUIImages)
             default:
                 FirstPage(userInfoDto: $userInfoDto)
             }
-            Button("Next") {
-                page += 1
-            }
-            Button("Create") {
-                userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
-                userVM.saveUserToUserDefault()
-                userVM.setIsLogin(status: true)
+            if page < 4 {
+                Button("Next") {
+                    page += 1
+                }
+            } else if page == 4 {
+                Button("Finish User Settings") {
+                    userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto, images: selectedUIImages)
+                    userVM.saveUserToUserDefault()
+                    userVM.setIsLogin(status: true)
+                }
             }
         }
     }
@@ -59,10 +56,10 @@ struct FirstPage: View {
     var body: some View {
         Form {
             TextField(text: $userInfoDto.name) {
-                Text("Name")
+                Text("Full Name")
             }
             DatePicker(selection: $userInfoDto.dob, in: ...Date(), displayedComponents: .date) {
-                Text("Birthday")
+                Text("Date of Birth")
                     .foregroundColor(.gray)
             }
             .fixedSize()
@@ -164,6 +161,7 @@ struct ImagePage: View {
     @Binding var images: [UIImage]
     @State var showLibrary = false
     let gridSpacing: CGFloat = 10
+    let gridPadding: CGFloat = 5
     
     let columns = [
         GridItem(spacing: 10),
@@ -172,34 +170,35 @@ struct ImagePage: View {
     ]
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Button {
-                    showLibrary = true
-                } label: {
-                    ZStack {
-//                        RoundedRectangle(cornerRadius: 5)
-//                            .stroke()
-//                            .foregroundColor(.black)
-                        Image(systemName: "plus")
-                    }
-                }
-                if !images.isEmpty {
-                    let _ = print(images)
-                    LazyVGrid(columns: columns, spacing: gridSpacing) {
+        VStack {
+            Text("Your Images")
+                .font(.title)
+                .bold()
+            ScrollView {
+                let size: CGFloat = (UIScreen.main.bounds.width/3) - gridSpacing - gridPadding
+                LazyVGrid(columns: columns, spacing: gridSpacing) {
+                    if !images.isEmpty {
                         ForEach(images, id: \.self) { image in
-                            GeometryReader { geometry in
-                                let size: CGFloat = geometry.size.width
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: size, height: size, alignment: .center)
-                                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                            }
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: size, height: size, alignment: .center)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                        }
+                    }
+                    Button {
+                        showLibrary = true
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke()
+                                .foregroundColor(.black)
+                                .frame(width: size, height: size, alignment: .leading)
+                            Image(systemName: "plus")
                         }
                     }
                 }
-                
+                .padding(.horizontal, gridPadding)
             }
         }
         .sheet(isPresented: $showLibrary) {

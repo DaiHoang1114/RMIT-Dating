@@ -74,6 +74,9 @@ class TargetViewModel: ObservableObject {
                                 {
                                     self.viewingTarget = self.targetInfos[0]
                                 }
+                                else {
+                                    self.outOfTargets = true
+                                }
                             }
                     }
                 }

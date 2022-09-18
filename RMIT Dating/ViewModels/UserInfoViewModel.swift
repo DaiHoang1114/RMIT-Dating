@@ -6,14 +6,38 @@
 //
 
 import Foundation
+import SwiftUI
 import Firebase
+import FirebaseStorage
 
 class UserInfoViewModel: ObservableObject {
     @Published private var userInfo: UserInfo = UserInfo()
     
     let db = Firestore.firestore()
+
+    func uploadImage(image: UIImage, imageName: String) {
+        let storageRef = Storage.storage().reference()
+        let imageRefString = "UserImages/\(self.getUuid())/\(imageName)"
+        let imageRef = storageRef.child(imageRefString)
+        let data = image.jpegData(compressionQuality: 1.0)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        if let data = data {
+            imageRef.putData(data, metadata: metadata) { metadata, error in
+                if let metadata = metadata {
+                    print(metadata)
+                    self.addImages(image: imageRefString)
+                    self.updateUserInfo(userInfoDto: self.userInfo)
+                }
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
     
-    func createUserInfo(userId: String, userInfoDto: UserInfo) {
+    func createUserInfo(userId: String, userInfoDto: UserInfo, images: [UIImage]) {
         var ref: DocumentReference? = nil
         ref = db.collection("UserInfos").addDocument(data: [
             "userId": userId,
@@ -24,7 +48,8 @@ class UserInfoViewModel: ObservableObject {
             "gender": userInfoDto.gender,
             "religion": userInfoDto.religion,
             "hobbies": userInfoDto.hobbies,
-            "musics": userInfoDto.musics
+            "musics": userInfoDto.musics,
+            "images": userInfoDto.images
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -33,6 +58,11 @@ class UserInfoViewModel: ObservableObject {
                 self.setUserId(userId: userId)
                 self.setUuid(uuid: ref!.documentID)
                 print("Document added: \(self.getUserInfo())")
+                
+                for (index, image) in images.enumerated() {
+                    // MARK: Need update to work with actual userID
+                    self.uploadImage(image: image, imageName: "\(index)")
+                }
             }
         }
     }
@@ -47,7 +77,8 @@ class UserInfoViewModel: ObservableObject {
             "gender": userInfoDto.gender,
             "religion": userInfoDto.religion,
             "hobbies": userInfoDto.hobbies,
-            "musics": userInfoDto.musics
+            "musics": userInfoDto.musics,
+            "images": userInfoDto.images
         ]) { err in
             if let err = err {
                 print("Error updating document: \(err)")
@@ -187,5 +218,17 @@ class UserInfoViewModel: ObservableObject {
     
     func getUserInfo() -> UserInfo {
         return self.userInfo
+    }
+    
+    func setImages(images: [String]) {
+        self.userInfo.setImages(images: images)
+    }
+    
+    func addImages(image: String) {
+        self.userInfo.addImage(image: image)
+    }
+    
+    func getImages() -> [String] {
+        return self.userInfo.getImages()
     }
 }
