@@ -21,6 +21,7 @@ struct MainView: View {
                     Image(systemName: "person.fill")
                     Text("Profile")
                 }
+            
             SwipeView()
                 .tabItem() {
                     Image(systemName: "suit.heart.fill")
@@ -30,11 +31,16 @@ struct MainView: View {
                     targetVM.fetchTargets(userInfo: userInfoVM.getUserInfo())
                 }
                 .environmentObject(targetVM)
+            
             MessageView()
                 .tabItem() {
                     Image(systemName: "message")
                     Text("Message")
                 }
+                .onAppear {
+                    targetVM.fetchMatches(userInfo: userInfoVM.getUserInfo())
+                }
+                .environmentObject(targetVM)
         }
     }
 }

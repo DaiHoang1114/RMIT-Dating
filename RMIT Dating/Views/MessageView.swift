@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MessageView: View {
+    
+    @EnvironmentObject var targetVM: TargetViewModel
+    
     var body: some View {
         VStack {
             HStack {
@@ -19,8 +22,8 @@ struct MessageView: View {
             Divider()
             ScrollView(.horizontal) {
                 HStack(spacing: 10) {
-                    ForEach(0..<10) { index in
-                        CardImage(image: Image("avatar-sample"), label: "Jisoo")
+                    ForEach(targetVM.getMatchInfos(), id:\.uuid) { matchInfo in
+                        CardImage(image: Image("avatar-sample"), label: matchInfo.getName())
                     }
                 }.padding()
             }

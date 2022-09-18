@@ -10,6 +10,7 @@ import Firebase
 
 class TargetViewModel: ObservableObject {
     @Published private var targetInfos: [UserInfo] = []
+    @Published private var matchInfos: [UserInfo] = []
     @Published private var targetIndex = 0
     @Published private var viewingTarget = UserInfo()
     @Published private var outOfTargets = false
@@ -19,6 +20,9 @@ class TargetViewModel: ObservableObject {
     private let matchCollection = Firestore.firestore().collection("Matches")
     
     func fetchTargets(userInfo: UserInfo){
+        
+        self.targetInfos = []
+        
         var targetGender = ""
         switch userInfo.gender {
         case "Male":
@@ -31,30 +35,100 @@ class TargetViewModel: ObservableObject {
             targetGender = ""
         }
         
-        userInfosCollection
-            .whereField("gender", isEqualTo: targetGender)
-            .whereField("userId", isNotEqualTo: userInfo.userId)
+        matchCollection
+            .whereField("userIds", arrayContains: userInfo.getUserId())
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
+                    var filterUserIds: [String] = [userInfo.userId]
                     for document in querySnapshot!.documents {
-                        var targetInfoDto = UserInfo()
-                        targetInfoDto.setUserId(userId: document.data()["userId"] as! String)
-                        targetInfoDto.setName(name: document.data()["name"] as! String)
-                        targetInfoDto.setDob(dob: (document.data()["dob"] as! Timestamp).dateValue())
-                        targetInfoDto.setPhone(phone: document.data()["phone"] as! String)
-                        targetInfoDto.setMaritalStatus(maritalStatus: document.data()["maritalStatus"] as! String)
-                        targetInfoDto.setGender(gender: document.data()["gender"] as! String)
-                        targetInfoDto.setReligion(religion: document.data()["religion"] as! String)
-                        targetInfoDto.setHobbies(hobbies: document.data()["hobbies"] as! [String])
-                        targetInfoDto.setMusics(musics: document.data()["musics"] as! [String])
-                        self.targetInfos.append(targetInfoDto)
+                        filterUserIds.append(
+                            self.getMatchedTargetUserId(
+                            userId: userInfo.getUserId(),
+                            userIds: document.data()["userIds"] as! [String]))
                     }
-                    print(self.targetInfos)
-                    if !self.targetInfos.isEmpty
-                    {
-                        self.viewingTarget = self.targetInfos[0]
+                    
+                    self.userInfosCollection
+                        .whereField("gender", isEqualTo: targetGender)
+                        .whereField("userId", notIn: filterUserIds)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    var targetInfoDto = UserInfo()
+                                    targetInfoDto.setUserId(userId: document.data()["userId"] as! String)
+                                    targetInfoDto.setName(name: document.data()["name"] as! String)
+                                    targetInfoDto.setDob(dob: (document.data()["dob"] as! Timestamp).dateValue())
+                                    targetInfoDto.setPhone(phone: document.data()["phone"] as! String)
+                                    targetInfoDto.setMaritalStatus(maritalStatus: document.data()["maritalStatus"] as! String)
+                                    targetInfoDto.setGender(gender: document.data()["gender"] as! String)
+                                    targetInfoDto.setReligion(religion: document.data()["religion"] as! String)
+                                    targetInfoDto.setHobbies(hobbies: document.data()["hobbies"] as! [String])
+                                    targetInfoDto.setMusics(musics: document.data()["musics"] as! [String])
+                                    self.targetInfos.append(targetInfoDto)
+                                }
+                                print("Targets: \(self.targetInfos)")
+                                if !self.targetInfos.isEmpty
+                                {
+                                    self.viewingTarget = self.targetInfos[0]
+                                }
+                            }
+                    }
+                }
+        }
+    }
+    
+    func getMatchedTargetUserId(userId: String, userIds: [String]) -> String {
+        var matchedTargetUserId = ""
+        for id in userIds {
+            if id != userId {
+                matchedTargetUserId = id
+            }
+        }
+        return matchedTargetUserId
+    }
+    
+    func fetchMatches(userInfo: UserInfo){
+        
+        self.matchInfos = []
+        
+        matchCollection
+            .whereField("userIds", arrayContains: userInfo.getUserId())
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    var matchedTargetUserIds: [String] = [""]
+                    for document in querySnapshot!.documents {
+                        matchedTargetUserIds.append(
+                            self.getMatchedTargetUserId(
+                            userId: userInfo.getUserId(),
+                            userIds: document.data()["userIds"] as! [String]))
+                    }
+                    
+                    self.userInfosCollection
+                        .whereField("userId", in: matchedTargetUserIds)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    var matchInfoDto = UserInfo()
+                                    matchInfoDto.setUserId(userId: document.data()["userId"] as! String)
+                                    matchInfoDto.setName(name: document.data()["name"] as! String)
+                                    matchInfoDto.setDob(dob: (document.data()["dob"] as! Timestamp).dateValue())
+                                    matchInfoDto.setPhone(phone: document.data()["phone"] as! String)
+                                    matchInfoDto.setMaritalStatus(maritalStatus: document.data()["maritalStatus"] as! String)
+                                    matchInfoDto.setGender(gender: document.data()["gender"] as! String)
+                                    matchInfoDto.setReligion(religion: document.data()["religion"] as! String)
+                                    matchInfoDto.setHobbies(hobbies: document.data()["hobbies"] as! [String])
+                                    matchInfoDto.setMusics(musics: document.data()["musics"] as! [String])
+                                    self.matchInfos.append(matchInfoDto)
+                                }
+                                print("Matches: \(self.matchInfos)")
+                            }
                     }
                 }
         }
@@ -182,6 +256,10 @@ class TargetViewModel: ObservableObject {
     
     func getViewingTarget() -> UserInfo {
         return self.viewingTarget
+    }
+    
+    func getMatchInfos() -> [UserInfo] {
+        return self.matchInfos
     }
     
     func calculateAge() -> Int {
