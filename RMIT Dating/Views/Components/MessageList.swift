@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct MessageList: View {
+    
+    @EnvironmentObject var targetVM: TargetViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
+    
     var body: some View {
         VStack {
             Divider()
             ScrollView(.vertical) {
                 VStack(spacing: 10) {
+<<<<<<< Updated upstream
 //                        MessageCard(image: Image("avatar-sample"), name: "jisoo96", message: "i love you <3")
 //                            .frame(width: 400, height: 100)
                     
@@ -24,6 +29,11 @@ struct MessageList: View {
                                 .frame(width: 400, height: 100)
                         }
                         .buttonStyle(PlainButtonStyle())
+=======
+                    ForEach(targetVM.getMatchInfos(), id:\.userId) { matchInfo in
+                        MessageCard(image: Image("avatar-sample"), name: matchInfo.getName(), message: "i love you <3")
+                            .frame(width: 400, height: 100)
+>>>>>>> Stashed changes
                     }
                 }
             } //end ScrollView
