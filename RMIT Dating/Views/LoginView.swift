@@ -16,7 +16,7 @@ struct LoginView: View {
     @StateObject var loginVM: LoginViewModel = LoginViewModel()
     
     var body: some View {
-        if loginVM.signInSuccess {
+        if loginVM.signInSuccess || !userVM.getUser().getUUID().isEmpty {
             MainView(loginVM: loginVM)
                 .navigationBarBackButtonHidden(true)
         } else {
@@ -70,6 +70,7 @@ struct LoginView: View {
                 self.loginVM.signInSuccess = true
                 self.userVM.setUser(user:User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
                 userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID())
+                userVM.saveUserToUserDefault()
             }
         }
     }

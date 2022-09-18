@@ -33,4 +33,38 @@ class UserViewModel: ObservableObject {
     func setUser(user: User) {
         self.user = user
     }
+    
+    func saveUserToUserDefault() {
+        do {
+            let encodedUser = try JSONEncoder().encode(self.user)
+            UserDefaults.standard.set(encodedUser, forKey: "user")
+        } catch let error {
+            fatalError("Failed to encode JSON: \(error)")
+        }
+    }
+    
+    func resetUserInUserDefault() {
+        do {
+            let encodedUser = try JSONEncoder().encode(User(uuid: "", email: ""))
+            UserDefaults.standard.set(encodedUser, forKey: "user")
+        } catch let error {
+            fatalError("Failed to encode JSON: \(error)")
+        }
+    }
+
+    func loadUserFromUserDefault() {
+        guard let decodedUser = UserDefaults.standard.data(forKey: "user") else {return}
+        
+        do {
+            let decodedUser = try JSONDecoder().decode(User.self, from: decodedUser)
+            self.user = decodedUser
+        } catch let error {
+            fatalError("Failed to decode JSON: \(error)")
+        }
+    }
+    
+    func reset() {
+        resetUserInUserDefault()
+        self.user = User(uuid: "", email: "")
+    }
 }
