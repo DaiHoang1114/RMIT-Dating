@@ -15,7 +15,7 @@ struct SwipeView: View {
     
     var numberOfImages = sampleImagesArray.count
     
-    @State var images = [String]()
+    @State var images = [UIImage]()
     
     @State private var showingTargetDetailView = false
     
@@ -44,7 +44,7 @@ struct SwipeView: View {
                                         let imageRef = storageRef.child(imageRefString)
                                         imageRef.getData(maxSize: Int64(10 * 1024 * 1024)) { data, error in
                                             if let data = data {
-                                                images.append("success")
+                                                $images.append(UIImage(data: data)!)
                                                 print("-------")
                                             }
                                         }
