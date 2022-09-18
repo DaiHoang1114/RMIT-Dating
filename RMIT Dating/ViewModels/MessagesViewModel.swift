@@ -1,14 +1,23 @@
-//
-//  MessagesViewModel.swift
-//  RMIT Dating
-//
-//  Created by Duong Minh Nhat on 18/09/2022.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2022B
+  Assessment: Assignment 3
+  Authors (ID):
+    Nguyen Minh Tri    (s3726096)
+    Duong Minh Nhat    (s3715125)
+    Hoang Quoc Dai    (s3426353)
+    Vu Duy Khoi    (s3694615)
+  Created  date: 10/09/2022
+  Last modified: 18/09/2022
+  Acknowledgement:
+    https://firebase.google.com/docs/build
+    https://www.appcoda.com/swiftui-camera-photo-library/
+    https://youtube.com (tutorial videos)
+*/
 
 import Foundation
 import Firebase
-//import FirebaseFirestore
-//import FirebaseFirestoreSwift
 
 class MessagesViewModel: ObservableObject {
     let dbName = "Messages"
@@ -17,10 +26,6 @@ class MessagesViewModel: ObservableObject {
     @Published private(set) var lastMessageId = ""
     
     let db = Firestore.firestore()
-    
-//    init() {
-//        getMessages()
-//    }
     
     func getMessages(isAdmin: Bool) {
         db.collection(dbName).addSnapshotListener { (querySnapshot, error) in
