@@ -50,8 +50,10 @@ class TargetViewModel: ObservableObject {
                         self.targetInfos.append(targetInfoDto)
                     }
                     print(self.targetInfos)
-                    
-                    self.viewingTarget = self.targetInfos[0]
+                    if !self.targetInfos.isEmpty
+                    {
+                        self.viewingTarget = self.targetInfos[0]
+                    }
                 }
         }
     }
