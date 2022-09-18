@@ -14,7 +14,9 @@ class TargetViewModel: ObservableObject {
     @Published private var viewingTarget = UserInfo()
     @Published private var outOfTargets = false
     
-    let db = Firestore.firestore()
+    private let userInfosCollection = Firestore.firestore().collection("UserInfos")
+    private let likeCollection = Firestore.firestore().collection("Likes")
+    private let matchCollection = Firestore.firestore().collection("Matches")
     
     func fetchTargets(userInfo: UserInfo){
         var targetGender = ""
@@ -29,7 +31,7 @@ class TargetViewModel: ObservableObject {
             targetGender = ""
         }
         
-        db.collection("UserInfos")
+        userInfosCollection
             .whereField("gender", isEqualTo: targetGender)
             .whereField("userId", isNotEqualTo: userInfo.userId)
             .getDocuments() { (querySnapshot, err) in
@@ -68,11 +70,9 @@ class TargetViewModel: ObservableObject {
         }
     }
     
-    func likeTarget(userId: String) {
-        //like
-        let userIds = [userId, viewingTarget.userId]
+    func createLike(userIds: [String]) {
         var ref: DocumentReference? = nil
-        ref = db.collection("Likes").addDocument(data: [
+        ref = self.likeCollection.addDocument(data: [
             "userIds": userIds
         ]) { err in
             if let err = err {
@@ -80,14 +80,79 @@ class TargetViewModel: ObservableObject {
             } else {
                 print("'Like' relationship is created: \(ref!.documentID)")
             }
-            self.getNextTarget()
         }
+    }
+    
+    func createMatch(userIds: [String], likeDocumentId: String) {
+        var ref: DocumentReference? = nil
+        ref = self.matchCollection.addDocument(data: [
+            "userIds": userIds
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("'Match' relationship is created: \(ref!.documentID)")
+                
+                //Delete "Like" relationship
+                self.likeCollection.document(likeDocumentId).delete()
+                { err in
+                    if let err = err {
+                        print("Error deleting document: \(err)")
+                    } else {
+                        print("Like between \(userIds[0]) and \(userIds[1]) successfully deleted")
+                    }
+                }
+            }
+        }
+    }
+    
+    func likeTarget(userId: String) {
+        //like
+        var userIds = [userId, viewingTarget.userId]
+        userIds = userIds.sorted()
+        
+        var isLikeExisting = false
+        var likeDocumentId = ""
+        likeCollection
+            .whereField("userIds", isEqualTo: userIds)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        isLikeExisting = true
+                        likeDocumentId = document.documentID
+                    }
+                    
+                    if isLikeExisting {
+                        var isMatchExisting = false
+                        self.matchCollection
+                            .whereField("userIds", isEqualTo: userIds)
+                            .getDocuments() { (querySnapshot, err) in
+                                if let err = err {
+                                    print("Error getting documents: \(err)")
+                                } else {
+                                    for _ in querySnapshot!.documents {
+                                        isMatchExisting = true
+                                    }
+                                    if !isMatchExisting {
+                                        self.createMatch(userIds: userIds, likeDocumentId: likeDocumentId)
+                                    }
+                                }
+                            }
+                    }
+                    else {
+                        self.createLike(userIds: userIds)
+                    }
+                    self.getNextTarget()
+                }
+            }
     }
     
     func dislikeTarget(userId: String) {
         print(viewingTarget)
         //dislike
-        db.collection("Likes")
+        likeCollection
             .whereField("userIds", arrayContains: userId)
             .getDocuments() { (querySnapshot, err) in
                 if let snapshot = querySnapshot?.documents {
@@ -95,7 +160,7 @@ class TargetViewModel: ObservableObject {
                         //Do delete
                         let userIds = doc.data()["userIds"] as! [String]
                         if userIds.contains(self.viewingTarget.userId){
-                            self.db.collection("Likes").document(doc.documentID).delete()
+                            self.likeCollection.document(doc.documentID).delete()
                             { err in
                                 if let err = err {
                                     print("Error deleting document: \(err)")
