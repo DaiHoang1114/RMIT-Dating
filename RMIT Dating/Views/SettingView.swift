@@ -9,6 +9,7 @@
 // References: https://www.appcoda.com/swiftui-camera-photo-library/
 
 import SwiftUI
+import FirebaseStorage
 
 struct SettingView: View {
     
@@ -31,22 +32,33 @@ struct SettingView: View {
                 ThirdPage(userInfoDto: $userInfoDto)
             case 4:
                 ImagePage(images: $selectedUIImages)
+//                Image(uiImage: testImage)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 200, height: 200, alignment: .center)
+//                    .onAppear {
+//                        print("here")
+//                        let ref = Storage.storage().reference().child("UserImages/123/1")
+//                        ref.getData(maxSize: Int64(3 * 1024 * 1024)) { data, error in
+//                            if let error = error {
+//                                print(error)
+//                            }
+//                            if let data = data {
+//                                testImage = UIImage(data: data)!
+//                            }
+//                        }
+//                    }
             default:
                 FirstPage(userInfoDto: $userInfoDto)
             }
-            Button("Next") {
-                page += 1
-                if page == 5 {
-                    var count = 1
-                    for image in selectedUIImages {
-                        // MARK: Need update to work with actual userID
-                        UserInfoViewModel.uploadImage(userId: "123", image: image, imageName: "\(count)")
-                        count += 1
-                    }
+            if page < 4 {
+                Button("Next") {
+                    page += 1
                 }
-            }
-            Button("Create") {
-                userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
+            } else if page == 4 {
+                Button("Finish User Settings") {
+                    userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto, images: selectedUIImages)
+                }
             }
         }
     }
