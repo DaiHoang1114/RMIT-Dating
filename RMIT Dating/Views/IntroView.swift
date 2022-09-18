@@ -9,41 +9,53 @@ import Foundation
 import SwiftUI
 
 struct IntroView: View {
+    @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     
     @State var isLoginView: Bool = false
     @State var isSignUpView: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                ColorConstants.tinderPinkLightColor
-//                    .opacity(0.5)
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    // Logo
-                    Image("logo")
-                        .frame(width: 150, height: 150, alignment: .center)
-                        .padding(.bottom, 50)
+        if !userVM.getUUID().isEmpty && userVM.getIsLogin() {
+            LoginView()
+        } else {
+            NavigationView {
+                ZStack {
+                    ColorConstants.tinderPinkLightColor
+                    //                    .opacity(0.5)
+                        .edgesIgnoringSafeArea(.all)
                     
-                    // Button Log in
-                    NavigationLink {
-                        LoginView()
-                    } label: {
-                        Text("Log in")
-                            .modifier(ButtonModifier())
-                    }
-                    
-                    // Button Sign Up
-                    NavigationLink {
-                        SignupView()
-                    } label: {
-                        Text("Sign Up")
-                            .modifier(ButtonModifier())
-                    }
-                } //end VStack
-            } //end ZStack
-        } //end NavigationView
+                    VStack {
+                        // Logo
+                        Image("logo")
+                            .frame(width: 150, height: 150, alignment: .center)
+                            .padding(.bottom, 50)
+                        
+                        // Button Log in
+                        NavigationLink {
+                            LoginView()
+                        } label: {
+                            Text("Log in")
+                                .modifier(ButtonModifier())
+                        }
+                        
+                        // Button Sign Up
+                        NavigationLink {
+                            SignupView()
+                        } label: {
+                            Text("Sign Up")
+                                .modifier(ButtonModifier())
+                        }
+                    } //end VStack
+                } //end ZStack
+            } //end NavigationView
+            .onAppear {
+                userVM.loadUserFromUserDefault()
+                if (!userVM.getUUID().isEmpty) {
+                    userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID())
+                }
+            }
+        }
     }
 }
 

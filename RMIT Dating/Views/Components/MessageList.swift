@@ -13,14 +13,22 @@ struct MessageList: View {
             Divider()
             ScrollView(.vertical) {
                 VStack(spacing: 10) {
+//                        MessageCard(image: Image("avatar-sample"), name: "jisoo96", message: "i love you <3")
+//                            .frame(width: 400, height: 100)
+                    
                     ForEach(0..<10) { index in
-                        MessageCard(image: Image("avatar-sample"), name: "jisoo96", message: "i love you <3")
-                            .frame(width: 400, height: 100)
+                        NavigationLink {
+                            ChatView()
+                        } label: {
+                            MessageCard(image: Image("avatar-sample"), name: "jisoo96", message: "i love you <3")
+                                .frame(width: 400, height: 100)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                }.padding()
-            }
-//            Divider()
-        }.frame(height: 350)
+                }
+            } //end ScrollView
+//                Divider()
+        } //end VStack
     }
 }
 
