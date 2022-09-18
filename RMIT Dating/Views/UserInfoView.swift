@@ -47,13 +47,7 @@ struct UserInfoView: View {
                 Button {
                     //sign out action
                     loginVM.resetEnv()
-                    
-                    print("[nhat]: \(userVM.getUser().getUUID())")
-                    print("[nhat]: \(userVM.getUser().getEmail())")
                     userVM.reset()
-                    print("[nhat2]: \(userVM.getUser().getUUID())")
-                    print("[nhat2]: \(userVM.getUser().getEmail())")
-                    
                 } label: {
                     Text("Sign out")
                         .modifier(ButtonModifier())

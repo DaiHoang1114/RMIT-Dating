@@ -46,6 +46,8 @@ struct SettingView: View {
             }
             Button("Create") {
                 userInfoVM.createUserInfo(userId: userVM.getUUID(),userInfoDto: userInfoDto)
+                userVM.saveUserToUserDefault()
+                userVM.setIsLogin(status: true)
             }
         }
     }

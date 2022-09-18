@@ -71,6 +71,7 @@ struct LoginView: View {
                 self.userVM.setUser(user:User(uuid: Auth.auth().currentUser!.uid, email: Auth.auth().currentUser!.email ?? ""))
                 userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID())
                 userVM.saveUserToUserDefault()
+                userVM.setIsLogin(status: true)
             }
         }
     }

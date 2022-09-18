@@ -10,12 +10,13 @@ import SwiftUI
 
 struct IntroView: View {
     @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     
     @State var isLoginView: Bool = false
     @State var isSignUpView: Bool = false
     
     var body: some View {
-        if !userVM.getUUID().isEmpty {
+        if !userVM.getUUID().isEmpty && userVM.getIsLogin() {
             LoginView()
         } else {
             NavigationView {
@@ -50,6 +51,9 @@ struct IntroView: View {
             } //end NavigationView
             .onAppear {
                 userVM.loadUserFromUserDefault()
+                if (!userVM.getUUID().isEmpty) {
+                    userInfoVM.fetchUserInfoByUserId(userId: userVM.getUUID())
+                }
             }
         }
     }
