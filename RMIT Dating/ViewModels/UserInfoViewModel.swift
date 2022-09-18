@@ -79,6 +79,17 @@ class UserInfoViewModel: ObservableObject {
         }
     }
     
+    func calculateAge() -> Int {
+        let dob = self.getDob()
+        let endDate = Date()
+
+        let calendar = Calendar.current
+        let calcAge = calendar.dateComponents([.year], from: dob, to: endDate)
+        let age = calcAge.year!
+        
+        return age
+    }
+    
     private func convertStringToDate(stringDate: String) -> Date {
         // Create Date Formatter
         let dateFormatter = DateFormatter()

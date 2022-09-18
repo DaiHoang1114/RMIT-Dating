@@ -10,10 +10,9 @@ import SwiftUI
 
 struct UserInfoView: View {
     @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userInfoVM: UserInfoViewModel
     
     @ObservedObject var loginVM: LoginViewModel
-    var name: String = "name"
-    var age: String = "age"
     
     var body: some View {
         NavigationView {
@@ -22,7 +21,7 @@ struct UserInfoView: View {
                     VStack {
                         CircleImage(image: Image("avatar-sample"), width: 150, height: 150)
                         
-                        Text("\(name), \(age)".uppercased())
+                        Text("\(userInfoVM.getName().isEmpty ? "NAME" : userInfoVM.getName()), \(userInfoVM.calculateAge())".uppercased())
                             .font(.system(size: 35, weight: .bold))
                         
                         
@@ -44,6 +43,72 @@ struct UserInfoView: View {
                 
                 Spacer()
                 
+                ScrollView {
+                    VStack {
+                        HStack {
+                            Text("About Me")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 23))
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Gender: \(userInfoVM.getGender().isEmpty ? "Unidentified" : userInfoVM.getGender())")
+                            Spacer()
+                        }
+                        .modifier(InfoTextModifier())
+                        HStack {
+                            Text("Religion: \(userInfoVM.getReligion().isEmpty ? "None" : userInfoVM.getReligion())")
+                            Spacer()
+                        }
+                        .modifier(InfoTextModifier())
+                        HStack {
+                            Text("Marital: \(userInfoVM.getMaritalStatus().isEmpty ? "Unidentified" : userInfoVM.getMaritalStatus())")
+                            Spacer()
+                        }
+                        .modifier(InfoTextModifier())
+                        
+                        HStack {
+                            Text("My Interests")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 23))
+                            Spacer()
+                        }
+                        HStack {
+//                            Text("Coffee")
+//                                .modifier(InterestModifier())
+//                            Text("Music")
+//                                .modifier(InterestModifier())
+//                            Text("Cooking")
+//                                .modifier(InterestModifier())
+                            ForEach(userInfoVM.getHobbies(), id: \.self) { hobby in
+                                    Text(hobby)
+                                        .modifier(InterestModifier())
+                            }
+                            Spacer()
+                        }
+                        .modifier(InfoTextModifier())
+                        
+                        HStack {
+                            Text("Music Genre")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 23))
+                            Spacer()
+                        }
+                        HStack {
+                            ForEach(userInfoVM.getMusics(), id: \.self) { music in
+                                    Text(music)
+                                        .modifier(InterestModifier())
+                            }
+                            Spacer()
+                        }
+                        
+                    } //end VStack
+                    .padding(.leading, 20)
+                    Spacer()
+                } //end ScrollView
+                
+                Spacer()
+                
                 Button {
                     //sign out action
                     loginVM.resetEnv()
@@ -62,6 +127,7 @@ struct UserInfoView: View {
 struct UserInfoView_Previews: PreviewProvider {
     static var previews: some View {
         UserInfoView(loginVM: LoginViewModel())
+            .environmentObject(UserInfoViewModel())
 //        UserInfoView(name: "Jisoo", age: "27")
     }
 }

@@ -114,4 +114,19 @@ class TargetViewModel: ObservableObject {
     func isOutOfTargets() -> Bool {
         return self.outOfTargets
     }
+    
+    func getViewingTarget() -> UserInfo {
+        return self.viewingTarget
+    }
+    
+    func calculateAge() -> Int {
+        let dob = self.viewingTarget.getDob()
+        let endDate = Date()
+
+        let calendar = Calendar.current
+        let calcAge = calendar.dateComponents([.year], from: dob, to: endDate)
+        let age = calcAge.year!
+        
+        return age
+    }
 }
