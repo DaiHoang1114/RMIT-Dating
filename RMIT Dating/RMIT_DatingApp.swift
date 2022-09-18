@@ -17,6 +17,8 @@ struct RMIT_DatingApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        UITabBar.appearance().backgroundColor = UIColor(ColorConstants.lightBlueGreyColor)
     }
     
     var body: some Scene {
