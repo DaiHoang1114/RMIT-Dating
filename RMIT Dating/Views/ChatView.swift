@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ChatView: View {
-    @StateObject var messagesVM = MessagesViewModel()
+//    var fromUser: String = "IKGYmzZSLrV5OUkqCQOyqe0qGpd2"
+//    var toUser: String = "kdwCRyKex3MxbGDYqUrOYKedDvq2"
+    
+    @StateObject var conversationsVM = ConversationsViewModel()
     
 //    var messageArray = ["Hi babe", "You are really cute", "It would be perfect if we can go out and chat"]
     
@@ -22,14 +25,14 @@ struct ChatView: View {
     //                    ForEach(messageArray, id:\.self) { text in
     //                        MessageBubble(message: Message(id: "123", text: text, received: true, timestamp: Date()))
     //                    }
-                        ForEach(messagesVM.messages, id:\.id) { message in
+                        ForEach(conversationsVM.messages, id:\.id) { message in
                             MessageBubble(message: message)
                         }
                     } //end ScrollView
                     .padding(.top, 10)
                     .background(.white)
                     .cornerRadius(30, corners: [.topLeft, .topRight])
-                    .onChange(of: messagesVM.lastMessageId) { id in
+                    .onChange(of: conversationsVM.lastMessageId) { id in
                         withAnimation {
                             proxy.scrollTo(id, anchor: .bottom)
                         }
@@ -39,8 +42,11 @@ struct ChatView: View {
             .background(ColorConstants.tinderPinkLightColor)
             
             MessageField()
-                .environmentObject(messagesVM)
+                .environmentObject(conversationsVM)
         } //end VStack
+        .onAppear {
+            conversationsVM.loadUserMessages(fromUser: dataFromUser, toUser: dataToUser)
+        }
     }
 }
 

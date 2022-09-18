@@ -8,8 +8,10 @@
 import Foundation
 import Firebase
 //import FirebaseFirestore
-//import FirebaseFirestoreSwift
+import FirebaseFirestoreSwift
 
+
+//this can be considered as a sample code
 class MessagesViewModel: ObservableObject {
     let dbName = "Messages"
     
@@ -30,36 +32,37 @@ class MessagesViewModel: ObservableObject {
             }
             
             //only return non-nil values
-//            self.messages = documents.compactMap { queryDocumentSnapshot -> Message? in
-//                do {
-//                    return try queryDocumentSnapshot.data(as: Message.self)
-//                } catch {
-//                    print("Error decoded document into messages: \(error)")
-//                    return nil
-//                }
-//            }
-            
-//            self.messages = documents.compactMap { queryDocumentSnapshot -> Message? in
-//              return try? queryDocumentSnapshot.data(as: Message.self)
-//            }
-            
-            self.messages = documents.map {
-                queryDocumentSnapshot -> Message in
-
-                let data = queryDocumentSnapshot.data()
-                let id = data["id"] as? String
-                let text = data["text"] as? String
-                let received = data["received"] as? Bool
-                let timestamp = (data["timestamp"] as! Timestamp).dateValue()
-
-                return Message(id: id!, text: text!, received: received!, timestamp: timestamp)
+            self.messages = documents.compactMap { queryDocumentSnapshot -> Message? in
+                do {
+                    return try queryDocumentSnapshot.data(as: Message.self)
+                } catch {
+                    print("Error decoded document into messages: \(error)")
+                    return nil
+                }
             }
             
-            self.messages.sort {$0.timestamp < $1.timestamp}
-            
-            if let id = self.messages.last?.id {
-                self.lastMessageId = id
+            self.messages = documents.compactMap { queryDocumentSnapshot -> Message? in
+              return try? queryDocumentSnapshot.data(as: Message.self)
             }
+            
+//            self.messages = documents.map {
+//                queryDocumentSnapshot -> Message in
+//
+//                let data = queryDocumentSnapshot.data()
+//                let id = data["id"] as? String
+//                let text = data["text"] as? String
+//                let received = data["received"] as? Bool
+//                let timestamp = (data["timestamp"] as! Timestamp).dateValue()
+//
+////                return Message(id: id!, text: text!, received: received!, timestamp: timestamp)
+//                return Message(id: id!, text: text!, received: received!, timestamp: timestamp, ownerId: "xxx")
+//            }
+//
+//            self.messages.sort {$0.timestamp < $1.timestamp}
+//
+//            if let id = self.messages.last?.id {
+//                self.lastMessageId = id
+//            }
         }
     } //end func
     
@@ -71,7 +74,8 @@ class MessagesViewModel: ObservableObject {
 //        } catch {
 //            print("Error adding message to fire store: \(error)")
 //        }
-        let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
+//        let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
+        let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date(), ownerId: "xxx")
         
 //        var ref: DocumentReference? = nil
         db.collection(dbName).addDocument(data: [

@@ -13,4 +13,7 @@ struct Message: Identifiable, Codable {
     //if user is the sender = false, user is receiver = true
     var received: Bool
     var timestamp: Date
+    
+    //user id of usr who sends
+    var ownerId: String
 }
