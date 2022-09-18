@@ -18,6 +18,13 @@
 		BC28ED3B28D609CE0056C8C8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */; };
 		BC28ED3F28D614ED0056C8C8 /* CardImageSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED3E28D614EC0056C8C8 /* CardImageSwipe.swift */; };
 		BC28ED4128D6272D0056C8C8 /* SizeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC28ED4028D6272D0056C8C8 /* SizeConstants.swift */; };
+		BCF47B9628D6F21A00B8E5CE /* TitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47B9528D6F21A00B8E5CE /* TitleRow.swift */; };
+		BCF47B9828D6F5DF00B8E5CE /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47B9728D6F5DF00B8E5CE /* ChatView.swift */; };
+		BCF47B9A28D6F65D00B8E5CE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47B9928D6F65D00B8E5CE /* Message.swift */; };
+		BCF47B9C28D6F75E00B8E5CE /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47B9B28D6F75E00B8E5CE /* MessageBubble.swift */; };
+		BCF47B9F28D6FBB000B8E5CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47B9E28D6FBB000B8E5CE /* Extensions.swift */; };
+		BCF47BA128D6FC4F00B8E5CE /* MessageField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47BA028D6FC4F00B8E5CE /* MessageField.swift */; };
+		BCF47BA328D6FFB200B8E5CE /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF47BA228D6FFB200B8E5CE /* MessagesViewModel.swift */; };
 		F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375728CDAA13007B4536 /* SwipeView.swift */; };
 		F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375928CDAA56007B4536 /* MessageView.swift */; };
 		F40C375C28CDB57D007B4536 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40C375B28CDB57D007B4536 /* SettingView.swift */; };
@@ -53,6 +60,13 @@
 		BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BC28ED3E28D614EC0056C8C8 /* CardImageSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageSwipe.swift; sourceTree = "<group>"; };
 		BC28ED4028D6272D0056C8C8 /* SizeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeConstants.swift; sourceTree = "<group>"; };
+		BCF47B9528D6F21A00B8E5CE /* TitleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRow.swift; sourceTree = "<group>"; };
+		BCF47B9728D6F5DF00B8E5CE /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		BCF47B9928D6F65D00B8E5CE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		BCF47B9B28D6F75E00B8E5CE /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
+		BCF47B9E28D6FBB000B8E5CE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BCF47BA028D6FC4F00B8E5CE /* MessageField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageField.swift; sourceTree = "<group>"; };
+		BCF47BA228D6FFB200B8E5CE /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
 		F40C375728CDAA13007B4536 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		F40C375928CDAA56007B4536 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		F40C375B28CDB57D007B4536 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -92,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BCF47B9D28D6FB8C00B8E5CE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BCF47B9E28D6FBB000B8E5CE /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		F43B976D28D2E1AF00040C54 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +121,7 @@
 				F4C5325F28D4271F006DF3B5 /* UserInfoViewModel.swift */,
 				BC28ED3A28D609CE0056C8C8 /* LoginViewModel.swift */,
 				F46BD2A728D600FD002A9CFD /* TargetViewModel.swift */,
+				BCF47BA228D6FFB200B8E5CE /* MessagesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -114,6 +137,9 @@
 				BC28ED3028D56F5C0056C8C8 /* CircleButton.swift */,
 				BC28ED3828D5BD6C0056C8C8 /* CircleInteractButton.swift */,
 				BC28ED3E28D614EC0056C8C8 /* CardImageSwipe.swift */,
+				BCF47B9528D6F21A00B8E5CE /* TitleRow.swift */,
+				BCF47B9B28D6F75E00B8E5CE /* MessageBubble.swift */,
+				BCF47BA028D6FC4F00B8E5CE /* MessageField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -137,6 +163,7 @@
 		F4FE6FF428C332ED00A6153A /* RMIT Dating */ = {
 			isa = PBXGroup;
 			children = (
+				BCF47B9D28D6FB8C00B8E5CE /* Helpers */,
 				F43B976D28D2E1AF00040C54 /* ViewModels */,
 				139F189128D1F59E004F258B /* GoogleService-Info.plist */,
 				F4FE700828C33AC400A6153A /* Models */,
@@ -162,6 +189,7 @@
 			children = (
 				F43B977528D3255E00040C54 /* Components */,
 				F4FE700428C3353900A6153A /* IntroView.swift */,
+				BCF47B9728D6F5DF00B8E5CE /* ChatView.swift */,
 				F4FE700628C3354900A6153A /* LoginView.swift */,
 				F4FE700B28C34F5500A6153A /* SignupView.swift */,
 				F42217AB28CF68DF00A9BD7F /* SplashView.swift */,
@@ -183,6 +211,7 @@
 				F4C5325D28D41FE4006DF3B5 /* UserInfo.swift */,
 				BC28ED3628D5BC160056C8C8 /* TestData.swift */,
 				BC28ED4028D6272D0056C8C8 /* SizeConstants.swift */,
+				BCF47B9928D6F65D00B8E5CE /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,10 +298,13 @@
 				F4FE700C28C34F5500A6153A /* SignupView.swift in Sources */,
 				F44F53D328C446F0001419BF /* UserInfoView.swift in Sources */,
 				BC28ED3728D5BC160056C8C8 /* TestData.swift in Sources */,
+				BCF47B9828D6F5DF00B8E5CE /* ChatView.swift in Sources */,
 				F4C5325C28D33AD8006DF3B5 /* MainView.swift in Sources */,
+				BCF47B9A28D6F65D00B8E5CE /* Message.swift in Sources */,
 				F40C375828CDAA13007B4536 /* SwipeView.swift in Sources */,
 				F4FE6FF828C332ED00A6153A /* ContentView.swift in Sources */,
 				F4FE6FF628C332ED00A6153A /* RMIT_DatingApp.swift in Sources */,
+				BCF47BA128D6FC4F00B8E5CE /* MessageField.swift in Sources */,
 				BC28ED3B28D609CE0056C8C8 /* LoginViewModel.swift in Sources */,
 				F4FE700728C3354900A6153A /* LoginView.swift in Sources */,
 				F43B977228D2F77000040C54 /* UserViewModel.swift in Sources */,
@@ -282,12 +314,16 @@
 				BC28ED3928D5BD6C0056C8C8 /* CircleInteractButton.swift in Sources */,
 				F42217AC28CF68DF00A9BD7F /* SplashView.swift in Sources */,
 				F42217B228CF77B000A9BD7F /* MessageCard.swift in Sources */,
+				BCF47B9F28D6FBB000B8E5CE /* Extensions.swift in Sources */,
+				BCF47B9628D6F21A00B8E5CE /* TitleRow.swift in Sources */,
+				BCF47BA328D6FFB200B8E5CE /* MessagesViewModel.swift in Sources */,
 				F40C375A28CDAA56007B4536 /* MessageView.swift in Sources */,
 				BC28ED4128D6272D0056C8C8 /* SizeConstants.swift in Sources */,
 				139F189B28D204D5004F258B /* Modifiers.swift in Sources */,
 				F4285B8228D59BCA005832C0 /* TargetDetailsView.swift in Sources */,
 				F4FE700528C3353900A6153A /* IntroView.swift in Sources */,
 				BC28ED3128D56F5C0056C8C8 /* CircleButton.swift in Sources */,
+				BCF47B9C28D6F75E00B8E5CE /* MessageBubble.swift in Sources */,
 				BC28ED2F28D563FF0056C8C8 /* CircleImage.swift in Sources */,
 				F4C5326028D4271F006DF3B5 /* UserInfoViewModel.swift in Sources */,
 				BC28ED3F28D614ED0056C8C8 /* CardImageSwipe.swift in Sources */,
