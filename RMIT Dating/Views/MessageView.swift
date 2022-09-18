@@ -35,7 +35,6 @@ struct MessageView: View {
             MessageList()
             
         } //end VStack
-        .padding(.top, 100)
     }
 }
 
