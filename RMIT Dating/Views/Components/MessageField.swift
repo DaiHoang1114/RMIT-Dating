@@ -17,6 +17,7 @@ struct MessageField: View {
             
             Button {
                 messagesVM.sendMessage(text: message)
+                message = ""
             } label: {
                 Image(systemName: "paperplane.fill")
                     .foregroundColor(.white)

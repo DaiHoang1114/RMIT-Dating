@@ -17,17 +17,24 @@ struct ChatView: View {
             VStack {
                 TitleRow()
                 
-                ScrollView {
-//                    ForEach(messageArray, id:\.self) { text in
-//                        MessageBubble(message: Message(id: "123", text: text, received: true, timestamp: Date()))
-//                    }
-                    ForEach(messagesVM.messages, id:\.id) { message in
-                        MessageBubble(message: message)
+                ScrollViewReader { proxy in 
+                    ScrollView {
+    //                    ForEach(messageArray, id:\.self) { text in
+    //                        MessageBubble(message: Message(id: "123", text: text, received: true, timestamp: Date()))
+    //                    }
+                        ForEach(messagesVM.messages, id:\.id) { message in
+                            MessageBubble(message: message)
+                        }
+                    } //end ScrollView
+                    .padding(.top, 10)
+                    .background(.white)
+                    .cornerRadius(30, corners: [.topLeft, .topRight])
+                    .onChange(of: messagesVM.lastMessageId) { id in
+                        withAnimation {
+                            proxy.scrollTo(id, anchor: .bottom)
+                        }
                     }
-                } //end ScrollView
-                .padding(.top, 10)
-                .background(.white)
-                .cornerRadius(30, corners: [.topLeft, .topRight])
+                } //end ScrollViewReader
             } //end VStack
             .background(ColorConstants.tinderPinkLightColor)
             

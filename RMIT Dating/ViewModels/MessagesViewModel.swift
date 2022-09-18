@@ -14,6 +14,7 @@ class MessagesViewModel: ObservableObject {
     let dbName = "Messages"
     
     @Published private(set) var messages: [Message] = []
+    @Published private(set) var lastMessageId = ""
     
     let db = Firestore.firestore()
     
@@ -55,6 +56,10 @@ class MessagesViewModel: ObservableObject {
             }
             
             self.messages.sort {$0.timestamp < $1.timestamp}
+            
+            if let id = self.messages.last?.id {
+                self.lastMessageId = id
+            }
         }
     } //end func
     
@@ -68,8 +73,8 @@ class MessagesViewModel: ObservableObject {
 //        }
         let newMessage = Message(id: "\(UUID())", text: text, received: false, timestamp: Date())
         
-        var ref: DocumentReference? = nil
-        ref = db.collection(dbName).addDocument(data: [
+//        var ref: DocumentReference? = nil
+        db.collection(dbName).addDocument(data: [
             "id": newMessage.id,
             "text": newMessage.text,
             "received": newMessage.received,
