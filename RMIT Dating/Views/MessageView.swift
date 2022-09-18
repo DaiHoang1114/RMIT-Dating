@@ -12,7 +12,6 @@ struct MessageView: View {
     @EnvironmentObject var targetVM: TargetViewModel
     
     var body: some View {
-<<<<<<< Updated upstream
         NavigationView {
             VStack {
                 HStack {
@@ -42,7 +41,6 @@ struct MessageView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
         } //end NavigationView
-=======
         VStack {
             HStack {
                 Text("New Matches")
@@ -69,7 +67,6 @@ struct MessageView: View {
             MessageList()
             
         } //end VStack
->>>>>>> Stashed changes
     }
 }
 

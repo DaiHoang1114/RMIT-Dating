@@ -44,11 +44,12 @@ struct SwipeView: View {
                                         let imageRef = storageRef.child(imageRefString)
                                         imageRef.getData(maxSize: Int64(10 * 1024 * 1024)) { data, error in
                                             if let data = data {
-                                                $images.append(UIImage(data: data)!)
+                                                images.append(UIImage(data: data)!)
                                                 print("-------")
                                             }
                                         }
-                                    }                                }
+                                    }
+                                }
                             } else if targetVM.getViewingTarget().getImages().count == 0 {
                                 CardImageSwipe(image: Image(systemName: "person"))
                             }
