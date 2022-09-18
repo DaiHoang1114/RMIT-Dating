@@ -67,6 +67,7 @@ class TargetViewModel: ObservableObject {
                                     targetInfoDto.setReligion(religion: document.data()["religion"] as! String)
                                     targetInfoDto.setHobbies(hobbies: document.data()["hobbies"] as! [String])
                                     targetInfoDto.setMusics(musics: document.data()["musics"] as! [String])
+                                    targetInfoDto.setImages(images: document.data()["images"] as! [String])
                                     self.targetInfos.append(targetInfoDto)
                                 }
                                 print("Targets: \(self.targetInfos)")
@@ -125,6 +126,7 @@ class TargetViewModel: ObservableObject {
                                     matchInfoDto.setReligion(religion: document.data()["religion"] as! String)
                                     matchInfoDto.setHobbies(hobbies: document.data()["hobbies"] as! [String])
                                     matchInfoDto.setMusics(musics: document.data()["musics"] as! [String])
+                                    matchInfoDto.setImages(images: document.data()["images"] as! [String])
                                     self.matchInfos.append(matchInfoDto)
                                 }
                                 print("Matches: \(self.matchInfos)")

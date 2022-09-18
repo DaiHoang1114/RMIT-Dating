@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseStorage
 
 struct SwipeView: View {
     
@@ -13,6 +14,8 @@ struct SwipeView: View {
     @EnvironmentObject var userInfoVM: UserInfoViewModel
     
     var numberOfImages = sampleImagesArray.count
+    
+    @State var images = [String]()
     
     @State private var showingTargetDetailView = false
     
@@ -27,9 +30,27 @@ struct SwipeView: View {
                     //MARK: Image Scroll
                     VStack {
                         TabView {
-                            ForEach(0..<numberOfImages, id: \.self) {
-                                imIdx in
-                                CardImageSwipe(image: sampleImagesArray[imIdx])
+                            if targetVM.getViewingTarget().getImages().count > 0 {
+                                ForEach(0..<self.images.count, id: \.self) {
+                                    imIdx in
+    //                                CardImageSwipe(image: sampleImagesArray[imIdx])
+//                                    CardImageSwipe(image: Image(uiImage: self.images[imIdx]))
+//                                    Image(uiImage: UIImage(data: images[0])!)
+                                }
+                                .onAppear {
+                                    let storageRef = Storage.storage().reference()
+                                    for refString in targetVM.getViewingTarget().getImages() {
+                                        let imageRefString = refString
+                                        let imageRef = storageRef.child(imageRefString)
+                                        imageRef.getData(maxSize: Int64(10 * 1024 * 1024)) { data, error in
+                                            if let data = data {
+                                                images.append("success")
+                                                print("-------")
+                                            }
+                                        }
+                                    }                                }
+                            } else if targetVM.getViewingTarget().getImages().count == 0 {
+                                CardImageSwipe(image: Image(systemName: "person"))
                             }
                         } //end TabView
                         .tabViewStyle(PageTabViewStyle())

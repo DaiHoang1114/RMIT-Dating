@@ -104,6 +104,7 @@ class UserInfoViewModel: ObservableObject {
                         self.userInfo.setReligion(religion: document.data()["religion"] as! String)
                         self.userInfo.setHobbies(hobbies: document.data()["hobbies"] as! [String])
                         self.userInfo.setMusics(musics: document.data()["musics"] as! [String])
+                        self.userInfo.setImages(images: document.data()["images"] as! [String])
                     }
                     print(self.userInfo)
                 }
